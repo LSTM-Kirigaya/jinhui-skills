@@ -7,7 +7,7 @@
 **安装 Skill：**
 
 ```
-请从 https://github.com/jinhui-skills/jinhui-skills/blob/main/skills/{skill-name}/SKILL.md 读取内容并安装该 skill。
+请从 https://github.com/LSTM-Kirigaya/jinhui-skills/blob/main/skills/{skill-name}/SKILL.md 读取内容并安装该 skill。
 ```
 
 **使用 Skill：**
@@ -26,7 +26,7 @@
 
 **安装：**
 ```
-请从 https://github.com/jinhui-skills/jinhui-skills/blob/main/skills/skill-creator/SKILL.md 读取内容并安装该 skill。
+请从 https://github.com/LSTM-Kirigaya/jinhui-skills/blob/main/skills/skill-creator/SKILL.md 读取内容并安装该 skill。
 ```
 
 **使用：**
@@ -42,7 +42,7 @@
 
 **安装：**
 ```
-请从 https://github.com/jinhui-skills/jinhui-skills/blob/main/skills/shot-scraper/SKILL.md 读取内容并安装该 skill。
+请从 https://github.com/LSTM-Kirigaya/jinhui-skills/blob/main/skills/shot-scraper/SKILL.md 读取内容并安装该 skill。
 ```
 
 **使用：**
@@ -52,6 +52,20 @@
 
 ---
 
+### [tauri-devtools](skills/tauri-devtools/SKILL.md)
+
+Tauri 应用开发调试工具集，提供截图、DOM 检查、元素交互、IPC 监控等功能。包含完整的初始化配置指南和踩坑记录。
+
+**安装：**
+```
+请从 https://github.com/LSTM-Kirigaya/jinhui-skills/blob/main/skills/tauri-devtools/SKILL.md 读取内容并安装该 skill。
+```
+
+**使用：**
+```
+请帮我调试这个 Tauri 应用...
+```
+
 ## 目录结构
 
 ```
@@ -60,8 +74,17 @@ jinhui-skills/
 ├── skills/                # 所有 skill 文件存放目录
 │   ├── skill-creator/
 │   │   └── SKILL.md
-│   └── shot-scraper/
-│       └── SKILL.md
+│   ├── shot-scraper/
+│   │   └── SKILL.md
+│   └── tauri-devtools/    # Tauri 开发调试工具集（含子目录结构）
+│       ├── SKILL.md       # 主入口
+│       ├── setup/         # 初始化配置
+│       ├── session/       # Session 管理
+│       ├── ui-automation/ # UI 自动化
+│       ├── window/        # 窗口管理
+│       ├── ipc/           # IPC 调试
+│       ├── logs/          # 日志分析
+│       └── mobile/        # 移动开发
 └── templates/             # 模板文件
     └── SKILL.md.template
 ```
