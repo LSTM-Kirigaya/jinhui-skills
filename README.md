@@ -7,7 +7,7 @@
 **安装 Skill：**
 
 ```
-请从 https://github.com/LSTM-Kirigaya/jinhui-skills/blob/main/skills/{skill-name}/SKILL.md 读取内容并安装该 skill。
+请通过 https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/main/skills/{skill-name}/SKILL.md 安装该 skill。
 ```
 
 **使用 Skill：**
@@ -26,7 +26,7 @@
 
 **安装：**
 ```
-请从 https://github.com/LSTM-Kirigaya/jinhui-skills/blob/main/skills/skill-creator/SKILL.md 读取内容并安装该 skill。
+请通过 https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/main/skills/skill-creator/SKILL.md 安装该 skill。
 ```
 
 **使用：**
@@ -42,7 +42,7 @@
 
 **安装：**
 ```
-请从 https://github.com/LSTM-Kirigaya/jinhui-skills/blob/main/skills/shot-scraper/SKILL.md 读取内容并安装该 skill。
+请通过 https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/main/skills/shot-scraper/SKILL.md 安装该 skill。
 ```
 
 **使用：**
@@ -58,12 +58,28 @@ Tauri 应用开发调试工具集，提供截图、DOM 检查、元素交互、I
 
 **安装：**
 ```
-请从 https://github.com/LSTM-Kirigaya/jinhui-skills/blob/main/skills/tauri-devtools/SKILL.md 读取内容并安装该 skill。
+请通过 https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/main/skills/tauri-devtools/SKILL.md 安装该 skill。
 ```
 
 **使用：**
 ```
 请帮我调试这个 Tauri 应用...
+```
+
+---
+
+### [weapp-devtools](skills/weapp-devtools/SKILL.md)
+
+微信小程序自动化调试工具集，基于 miniprogram-automator 封装，提供截图、元素检查、页面导航、网络 Mock 等功能。包含完整的 9420 端口配置指南。
+
+**安装：**
+```
+请通过 https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/main/skills/weapp-devtools/SKILL.md 安装该 skill。
+```
+
+**使用：**
+```
+请帮我调试这个微信小程序...
 ```
 
 ## 目录结构
@@ -76,15 +92,23 @@ jinhui-skills/
 │   │   └── SKILL.md
 │   ├── shot-scraper/
 │   │   └── SKILL.md
-│   └── tauri-devtools/    # Tauri 开发调试工具集（含子目录结构）
+│   ├── tauri-devtools/    # Tauri 开发调试工具集（含子目录结构）
+│   │   ├── SKILL.md       # 主入口
+│   │   ├── setup/         # 初始化配置
+│   │   ├── session/       # Session 管理
+│   │   ├── ui-automation/ # UI 自动化
+│   │   ├── window/        # 窗口管理
+│   │   ├── ipc/           # IPC 调试
+│   │   ├── logs/          # 日志分析
+│   │   └── mobile/        # 移动开发
+│   └── weapp-devtools/    # 微信小程序调试工具集
 │       ├── SKILL.md       # 主入口
 │       ├── setup/         # 初始化配置
-│       ├── session/       # Session 管理
+│       ├── session/       # 连接管理
 │       ├── ui-automation/ # UI 自动化
-│       ├── window/        # 窗口管理
-│       ├── ipc/           # IPC 调试
-│       ├── logs/          # 日志分析
-│       └── mobile/        # 移动开发
+│       ├── navigation/    # 页面导航
+│       ├── network/       # 网络操作
+│       └── logs/          # 日志分析
 └── templates/             # 模板文件
     └── SKILL.md.template
 ```
