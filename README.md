@@ -36,22 +36,6 @@
 
 ---
 
-### [shot-scraper](skills/shot-scraper/SKILL.md)
-
-使用 shot-scraper 工具对网页进行截图并分析，适用于网页审查、UI 检查等场景。
-
-**安装：**
-```
-请通过 https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/main/skills/shot-scraper/SKILL.md 安装该 skill。
-```
-
-**使用：**
-```
-请帮我截图并分析这个网页: ...
-```
-
----
-
 ### [tauri-devtools](skills/tauri-devtools/SKILL.md)
 
 Tauri 应用开发调试工具集，提供截图、DOM 检查、元素交互、IPC 监控等功能。包含完整的初始化配置指南和踩坑记录。
@@ -82,6 +66,22 @@ Tauri 应用开发调试工具集，提供截图、DOM 检查、元素交互、I
 请帮我调试这个微信小程序...
 ```
 
+---
+
+### [web-devtools](skills/web-devtools/SKILL.md)
+
+基于 browser-use CLI 的浏览器自动化调试工具集，提供网页控制、元素交互、截图、Cookie 管理、云端浏览器等功能。支持无头/可视模式、真实 Chrome Profile、云端浏览器等。
+
+**安装：**
+```
+请通过 https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/main/skills/web-devtools/SKILL.md 安装该 skill。
+```
+
+**使用：**
+```
+请帮我自动化操作这个网页...
+```
+
 ## 目录结构
 
 ```
@@ -101,14 +101,23 @@ jinhui-skills/
 │   │   ├── ipc/           # IPC 调试
 │   │   ├── logs/          # 日志分析
 │   │   └── mobile/        # 移动开发
-│   └── weapp-devtools/    # 微信小程序调试工具集
+│   ├── weapp-devtools/    # 微信小程序调试工具集
+│   │   ├── SKILL.md       # 主入口
+│   │   ├── setup/         # 初始化配置
+│   │   ├── session/       # 连接管理
+│   │   ├── ui-automation/ # UI 自动化
+│   │   ├── navigation/    # 页面导航
+│   │   ├── network/       # 网络操作
+│   │   └── logs/          # 日志分析
+│   └── web-devtools/      # 浏览器自动化工具集 (browser-use)
 │       ├── SKILL.md       # 主入口
 │       ├── setup/         # 初始化配置
-│       ├── session/       # 连接管理
+│       ├── session/       # 会话管理
 │       ├── ui-automation/ # UI 自动化
 │       ├── navigation/    # 页面导航
-│       ├── network/       # 网络操作
-│       └── logs/          # 日志分析
+│       ├── cloud/         # 云平台
+│       ├── tunnels/       # 隧道
+│       └── profile/       # Profile 管理
 └── templates/             # 模板文件
     └── SKILL.md.template
 ```
