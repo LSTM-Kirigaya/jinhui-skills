@@ -1,3 +1,8 @@
+---
+name: weapp-devtools
+description: 用于调试微信小程序的自动化工具集，基于 miniprogram-automator 封装，提供截图、元素检查、页面导航、网络 Mock 等功能。Use when working with WeChat Mini Programs for: (1) Debugging UI with screenshots and element inspection, (2) Automating interactions like clicks, input, and swipes, (3) Navigating between pages and tabs, (4) Mocking network requests, (5) Reading console logs and errors.
+---
+
 # WeApp DevTools
 
 用于调试微信小程序的自动化工具集，基于 miniprogram-automator 封装，提供截图、元素检查、页面导航、网络 Mock 等功能。

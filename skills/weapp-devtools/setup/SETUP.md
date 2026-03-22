@@ -1,3 +1,8 @@
+---
+name: weapp-devtools-setup
+description: 微信小程序 DevTools 初始化配置指南。首次使用 WeApp DevTools 时必须完成的配置，包括安装 miniprogram-remote-control、配置微信开发者工具 CLI 路径和启动自动化服务。
+---
+
 # WeApp DevTools - 初始化配置
 
 > ⚠️ **这是必看文档**  

@@ -1,3 +1,8 @@
+---
+name: tauri-devtools-ui-automation
+description: Tauri 应用 UI 自动化操作指南。提供截图、DOM Snapshot、元素查找、样式获取、点击交互、键盘输入、等待元素和执行 JavaScript 等功能。
+---
+
 # UI 自动化
 
 用于检查、操作 WebView 内容的核心功能集合。

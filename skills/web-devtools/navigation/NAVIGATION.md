@@ -1,3 +1,8 @@
+---
+name: web-devtools-navigation
+description: Web 页面导航指南。提供网页导航、滚动、标签页管理和 Cookie 管理功能，包括前进后退、滚动页面、切换标签页和 Cookie 导入导出。
+---
+
 # 页面导航
 
 网页导航、滚动和 Cookie 管理。

@@ -1,3 +1,8 @@
+---
+name: weapp-devtools-network
+description: 微信小程序网络操作指南。提供网络请求拦截和 Mock 功能，包括设置 Mock、移除 Mock 和清除所有 Mock 规则。
+---
+
 # 网络操作
 
 网络请求拦截和 Mock 功能。

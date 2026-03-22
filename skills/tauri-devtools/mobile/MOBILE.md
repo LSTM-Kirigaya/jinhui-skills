@@ -1,3 +1,8 @@
+---
+name: tauri-devtools-mobile
+description: Tauri 移动应用调试指南。用于 Android 和 iOS 移动应用的调试，包括设备列表、日志读取和移动 Session 管理。
+---
+
 # 移动开发
 
 Tauri 移动应用（Android/iOS）的调试支持。

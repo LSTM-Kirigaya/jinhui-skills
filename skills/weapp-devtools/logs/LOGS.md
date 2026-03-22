@@ -1,3 +1,8 @@
+---
+name: weapp-devtools-logs
+description: 微信小程序日志分析指南。用于读取小程序运行时的控制台日志，支持按级别（log/info/warn/error/debug）筛选日志。
+---
+
 # 日志分析
 
 读取小程序运行时的控制台日志。

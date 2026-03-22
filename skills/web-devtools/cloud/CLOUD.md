@@ -1,3 +1,8 @@
+---
+name: web-devtools-cloud
+description: Browser Use 云平台使用指南。提供云端浏览器连接、API 认证、API v2/v3 调用和任务管理功能。
+---
+
 # 云平台
 
 Browser Use 云平台功能，提供云端浏览器和 API 管理。

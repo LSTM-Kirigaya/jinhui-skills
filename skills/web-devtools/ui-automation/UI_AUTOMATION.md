@@ -1,3 +1,8 @@
+---
+name: web-devtools-ui-automation
+description: Web UI 自动化操作指南。提供浏览器自动化核心功能，包括截图、元素检查、点击、输入、表单填写、JavaScript 执行和 Python 自动化。
+---
+
 # UI 自动化
 
 核心调试功能：截图、元素检查、点击、输入、表单填写等。

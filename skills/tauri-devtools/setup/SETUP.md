@@ -1,3 +1,8 @@
+---
+name: tauri-devtools-setup
+description: Tauri MCP Debug 初始化配置指南。首次使用 Tauri DevTools 时必须完成的配置步骤，包括 MCP Bridge 插件安装、withGlobalTauri 配置、权限配置和前端辅助函数注入。
+---
+
 # Tauri MCP Debug - 初始化配置
 
 > ⚠️ **这是必看文档**  

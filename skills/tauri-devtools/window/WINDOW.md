@@ -1,3 +1,8 @@
+---
+name: tauri-devtools-window
+description: Tauri 应用窗口管理指南。用于管理多窗口应用，包括列出窗口、获取窗口信息和调整窗口大小。
+---
+
 # 窗口管理
 
 管理 Tauri 应用窗口（支持多窗口应用）。

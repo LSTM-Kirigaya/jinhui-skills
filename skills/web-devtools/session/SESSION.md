@@ -1,3 +1,8 @@
+---
+name: web-devtools-session
+description: Browser Use 会话管理指南。管理浏览器会话和守护进程，包括列出活跃会话、关闭会话、多会话管理和故障排除。
+---
+
 # 会话管理
 
 管理浏览器会话和守护进程。

@@ -1,3 +1,8 @@
+---
+name: tauri-devtools-ipc
+description: Tauri IPC 通信调试指南。用于监控和调试前后端通信，包括获取后端状态、执行 IPC 命令、监控 IPC 调用和发送测试事件。
+---
+
 # IPC 调试
 
 监控和调试 Tauri 的前后端通信（IPC）。

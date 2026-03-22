@@ -1,3 +1,8 @@
+---
+name: tauri-devtools
+description: 用于调试 Tauri 应用的 MCP 工具集，提供截图、DOM 检查、元素交互、IPC 监控等功能。Use when working with Tauri applications for: (1) Debugging UI issues with screenshots and DOM inspection, (2) Automating UI interactions like clicks and input, (3) Monitoring IPC communication between frontend and backend, (4) Managing Tauri windows and sessions, (5) Reading console and system logs.
+---
+
 # Tauri DevTools
 
 用于调试 Tauri 应用的 MCP 工具集，提供截图、DOM 检查、元素交互、IPC 监控等功能。

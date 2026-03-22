@@ -1,3 +1,8 @@
+---
+name: web-devtools-profile
+description: Browser Use Profile 管理指南。将浏览器 Profile 同步到云端，包括列出 Profiles、同步 Profile 和检查 Cookie。
+---
+
 # Profile 管理
 
 浏览器 Profile 同步到 Browser Use 云端。

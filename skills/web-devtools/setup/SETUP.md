@@ -1,3 +1,8 @@
+---
+name: web-devtools-setup
+description: Web DevTools 初始化配置指南。首次使用 Web DevTools 时必须完成的配置，包括安装 Browser Use CLI、安装 Chromium 和验证安装。
+---
+
 # Web DevTools - 初始化配置
 
 > ⚠️ **这是必看文档**  

@@ -1,3 +1,8 @@
+---
+name: tauri-devtools-logs
+description: Tauri 应用日志分析指南。用于读取控制台日志（JavaScript）、系统日志、Android logcat 和 iOS 模拟器日志。
+---
+
 # 日志分析
 
 读取应用运行时的各类日志。

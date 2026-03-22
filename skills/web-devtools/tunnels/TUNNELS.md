@@ -1,3 +1,8 @@
+---
+name: web-devtools-tunnels
+description: Browser Use 隧道管理指南。将本地开发服务器暴露给云端浏览器，包括创建隧道、列出隧道和停止隧道。
+---
+
 # 隧道
 
 将本地开发服务器暴露给云端浏览器。

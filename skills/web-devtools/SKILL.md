@@ -1,3 +1,8 @@
+---
+name: web-devtools
+description: 基于 browser-use CLI 的浏览器自动化调试工具集，提供网页控制、元素交互、截图、Cookie 管理、云端浏览器等功能。Use when working with web applications for: (1) Browser automation and UI testing, (2) Taking screenshots and inspecting page elements, (3) Filling forms and simulating user interactions, (4) Managing cookies and sessions, (5) Using cloud-based browsers for remote debugging, (6) Creating tunnels for local development servers.
+---
+
 # Web DevTools
 
 基于 browser-use CLI 的浏览器自动化调试工具集，提供网页控制、元素交互、截图、Cookie 管理、云端浏览器等功能。

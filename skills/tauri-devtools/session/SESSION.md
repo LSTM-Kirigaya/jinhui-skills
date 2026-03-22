@@ -1,3 +1,8 @@
+---
+name: tauri-devtools-session
+description: Tauri 应用 Session 连接管理。管理与应用连接的会话，包括启动、查看状态、停止 Session 以及 Daemon 管理。
+---
+
 # Session 管理
 
 管理与 Tauri 应用的连接会话。所有其他工具都依赖活跃的 Session。

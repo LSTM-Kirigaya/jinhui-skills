@@ -1,3 +1,8 @@
+---
+name: weapp-devtools-ui-automation
+description: 微信小程序 UI 自动化操作指南。提供截图、元素检查、点击、输入、获取样式、等待元素、执行 JavaScript、滑动和设置页面数据等功能。
+---
+
 # UI 自动化
 
 用于检查、操作小程序 UI 的核心功能集合。
