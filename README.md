@@ -20,22 +20,6 @@
 
 <!-- 新技能请按字母顺序添加 -->
 
-### [skill-creator](skills/skill-creator/SKILL.md)
-
-用于创建和管理其他 skills 的元技能。提供标准的目录结构、文件模板和最佳实践指南。
-
-**安装：**
-```
-请通过 https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/main/skills/skill-creator/SKILL.md 安装该 skill。
-```
-
-**使用：**
-```
-请帮我创建一个新的 skill，用于...
-```
-
----
-
 ### [tauri-devtools](skills/tauri-devtools/SKILL.md)
 
 Tauri 应用开发调试工具集，提供截图、DOM 检查、元素交互、IPC 监控等功能。包含完整的初始化配置指南和踩坑记录。
@@ -88,10 +72,6 @@ Tauri 应用开发调试工具集，提供截图、DOM 检查、元素交互、I
 jinhui-skills/
 ├── README.md              # 本文件
 ├── skills/                # 所有 skill 文件存放目录
-│   ├── skill-creator/
-│   │   └── SKILL.md
-│   ├── shot-scraper/
-│   │   └── SKILL.md
 │   ├── tauri-devtools/    # Tauri 开发调试工具集（含子目录结构）
 │   │   ├── SKILL.md       # 主入口
 │   │   ├── setup/         # 初始化配置
