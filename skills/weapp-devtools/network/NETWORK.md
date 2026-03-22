@@ -124,7 +124,7 @@ mrc mock /api/user/profile '{
 mrc relaunch /pages/profile/index --port 9420
 
 # 3. 截图验证显示
-mrc screenshot ./profile-mocked.png --port 9420
+mrc screenshot ./screenshots/weapp/profile-mocked.png --port 9420
 
 # 4. 清除 Mock
 mrc unmock /api/user/profile --port 9420
@@ -144,7 +144,7 @@ mrc click view --port 9420
 mrc wait 1000 --port 9420
 
 # 检查错误提示是否显示
-mrc screenshot ./error-handling.png --port 9420
+mrc screenshot ./screenshots/weapp/error-handling.png --port 9420
 
 # 清除 Mock
 mrc clearMocks --port 9420

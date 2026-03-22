@@ -1,1 +1,12 @@
+# 忽略所有 PNG 图片（截图）
 *.png
+*.jpg
+*.jpeg
+*.webp
+
+# 忽略截图文件夹
+screenshots/
+
+# 忽略系统文件
+.DS_Store
+Thumbs.db

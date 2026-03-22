@@ -140,7 +140,7 @@ mrc wait 1000 --port 9420
 mrc errors 20 --port 9420
 
 # 4. 截图记录错误页面
-mrc screenshot ./error.png --port 9420
+mrc screenshot ./screenshots/weapp/error.png --port 9420
 ```
 
 ### 场景 2：性能分析

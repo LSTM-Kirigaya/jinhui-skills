@@ -224,7 +224,7 @@ browser-use --session monitor open https://status.example.com
 browser-use --session automation open https://app.example.com
 
 # 分别操作
-browser-use --session monitor screenshot status.png
+browser-use --session monitor screenshot screenshots/web/status.png
 browser-use --session automation click 5
 ```
 

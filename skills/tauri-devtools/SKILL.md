@@ -32,8 +32,8 @@ tauri-mcp driver-session status
 ### 第三步：基础调试
 
 ```bash
-# 截图查看当前状态
-tauri-mcp webview-screenshot --file debug.png
+# 截图查看当前状态（推荐保存到 screenshots 文件夹）
+tauri-mcp webview-screenshot --file screenshots/tauri/debug.png
 
 # 获取 DOM 结构
 tauri-mcp webview-dom-snapshot --type accessibility
@@ -138,7 +138,7 @@ tauri-mcp driver-session stop
 
 ```bash
 # 1. 截图看当前状态
-tauri-mcp webview-screenshot --file issue.png
+tauri-mcp webview-screenshot --file screenshots/tauri/issue.png
 
 # 2. 获取 DOM 看结构
 tauri-mcp webview-dom-snapshot --type accessibility
@@ -151,13 +151,13 @@ tauri-mcp read-logs --source console --lines 50
 
 ```bash
 # 1. 先截图确认初始状态
-tauri-mcp webview-screenshot --file before.png
+tauri-mcp webview-screenshot --file screenshots/tauri/before.png
 
 # 2. 点击某个元素
 tauri-mcp webview-interact --action click --selector "#submit-btn"
 
 # 3. 截图看结果
-tauri-mcp webview-screenshot --file after.png
+tauri-mcp webview-screenshot --file screenshots/tauri/after.png
 ```
 
 ### 场景 3：调试 IPC 问题

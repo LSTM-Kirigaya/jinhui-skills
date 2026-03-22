@@ -14,14 +14,14 @@ description: Tauri 应用 UI 自动化操作指南。提供截图、DOM Snapshot
 捕获 WebView 当前画面。
 
 ```bash
-# 基础截图
-tauri-mcp webview-screenshot --file screenshot.png
+# 基础截图（推荐保存到 screenshots 文件夹）
+tauri-mcp webview-screenshot --file screenshots/tauri/screenshot.png
 
 # 指定格式和质量（JPEG）
-tauri-mcp webview-screenshot --file screenshot.jpg --format jpeg --quality 90
+tauri-mcp webview-screenshot --file screenshots/tauri/screenshot.jpg --format jpeg --quality 90
 
 # 限制最大宽度（自动缩放）
-tauri-mcp webview-screenshot --file screenshot.png --max-width 1200
+tauri-mcp webview-screenshot --file screenshots/tauri/screenshot.png --max-width 1200
 ```
 
 **常用场景：**
@@ -231,13 +231,13 @@ tauri-mcp webview-interact --action click --selector "ref=e20"
 
 ```bash
 # 操作前截图
-tauri-mcp webview-screenshot --file before.png
+tauri-mcp webview-screenshot --file screenshots/tauri/before.png
 
 # 执行操作
 tauri-mcp webview-interact --action click --selector "#submit"
 
 # 操作后截图对比
-tauri-mcp webview-screenshot --file after.png
+tauri-mcp webview-screenshot --file screenshots/tauri/after.png
 ```
 
 ### 技巧 3：批量获取元素信息

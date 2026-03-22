@@ -81,7 +81,7 @@ browser-use open https://abc.trycloudflare.com
 
 # 5. 正常使用
 browser-use state
-browser-use screenshot local-test.png
+browser-use screenshot screenshots/web/local-test.png
 
 # 6. 清理
 browser-use close

@@ -14,14 +14,14 @@ description: 微信小程序 UI 自动化操作指南。提供截图、元素检
 捕获小程序当前画面。
 
 ```bash
-# 基础截图（保存到当前目录）
-mrc screenshot ./screenshot.png --port 9420
+# 基础截图（推荐保存到 screenshots 文件夹）
+mrc screenshot ./screenshots/weapp/screenshot.png --port 9420
 
 # 保存到绝对路径
-mrc screenshot /Users/username/Desktop/shot.png --port 9420
+mrc screenshot ./screenshots/weapp/shot.png --port 9420
 
 # 保存到临时目录
-mrc screenshot /tmp/wxapp.png --port 9420
+mrc screenshot ./screenshots/weapp/wxapp.png --port 9420
 ```
 
 **输出示例：**
@@ -166,7 +166,7 @@ mrc exists textarea --port 9420
 mrc type textarea "这是一份测试的早餐记录" --port 9420
 
 # 3. 截图验证
-mrc screenshot ./typed.png --port 9420
+mrc screenshot ./screenshots/weapp/typed.png --port 9420
 ```
 
 ---
@@ -298,21 +298,21 @@ mrc exists textarea --port $PORT && \
 mrc type textarea "自动填写的测试内容" --port $PORT && \
 mrc wait 500 --port $PORT && \
 mrc click ".submit-btn" --port $PORT && \
-mrc screenshot ./form-submitted.png --port $PORT
+mrc screenshot ./screenshots/weapp/form-submitted.png --port $PORT
 ```
 
 ### 技巧 3：操作前后对比
 
 ```bash
 # 操作前截图
-mrc screenshot ./before.png --port 9420
+mrc screenshot ./screenshots/weapp/before.png --port 9420
 
 # 执行操作
 mrc click view --port 9420
 mrc wait 1000 --port 9420
 
 # 操作后截图
-mrc screenshot ./after.png --port 9420
+mrc screenshot ./screenshots/weapp/after.png --port 9420
 
 # 对比两张截图
 ```

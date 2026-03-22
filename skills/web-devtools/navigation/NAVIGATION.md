@@ -204,7 +204,7 @@ for i in {1..5}; do
 done
 
 # 截图查看
-browser-use screenshot loaded.png
+browser-use screenshot screenshots/web/loaded.png
 ```
 
 ---

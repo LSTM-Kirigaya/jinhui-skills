@@ -44,8 +44,8 @@ lsof -i :9420
 ### 第三步：基础调试
 
 ```bash
-# 截图查看当前页面
-mrc screenshot ./debug.png --port 9420
+# 截图查看当前页面（推荐保存到 screenshots 文件夹）
+mrc screenshot ./screenshots/weapp/debug.png --port 9420
 
 # 获取当前页面信息
 mrc where --port 9420
@@ -142,7 +142,7 @@ lsof -i :9420
 
 ```bash
 # 1. 截图看当前状态
-mrc screenshot ./issue.png --port 9420
+mrc screenshot ./screenshots/weapp/issue.png --port 9420
 
 # 2. 检查关键元素是否存在
 mrc exists view --port 9420
@@ -156,7 +156,7 @@ mrc logs error 20 --port 9420
 
 ```bash
 # 1. 先截图确认初始状态
-mrc screenshot ./before.png --port 9420
+mrc screenshot ./screenshots/weapp/before.png --port 9420
 
 # 2. 检查输入框是否存在
 mrc exists textarea --port 9420
@@ -165,7 +165,7 @@ mrc exists textarea --port 9420
 mrc type textarea "测试内容" --port 9420
 
 # 4. 截图看结果
-mrc screenshot ./after.png --port 9420
+mrc screenshot ./screenshots/weapp/after.png --port 9420
 ```
 
 ### 场景 3：测试页面导航

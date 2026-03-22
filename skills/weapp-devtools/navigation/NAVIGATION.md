@@ -256,13 +256,13 @@ mrc where --json --port 9420
 mrc switchTab /pages/community/index --port 9420
 
 # 截图验证
-mrc screenshot ./community.png --port 9420
+mrc screenshot ./screenshots/weapp/community.png --port 9420
 
 # 切换到记录页面
 mrc switchTab /pages/record/index --port 9420
 
 # 截图验证
-mrc screenshot ./record.png --port 9420
+mrc screenshot ./screenshots/weapp/record.png --port 9420
 ```
 
 ### 场景 2：页面跳转和返回测试

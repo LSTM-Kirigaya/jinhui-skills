@@ -118,7 +118,7 @@ alias mrc-b='mrc --port 9421'
 
 # 使用
 mrc-a where
-mrc-b screenshot ./shot.png
+mrc-b screenshot ./screenshots/weapp/shot.png
 ```
 
 ---
@@ -222,7 +222,7 @@ cli auto --project /path/to/project --auto-port 9420
 mrc where --port 9420
 
 # 3. 执行调试操作...
-mrc screenshot ./shot.png --port 9420
+mrc screenshot ./screenshots/weapp/shot.png --port 9420
 mrc sysinfo --port 9420
 
 # 4. 完成后关闭开发者工具或停止 CLI

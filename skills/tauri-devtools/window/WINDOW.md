@@ -83,7 +83,7 @@ tauri-mcp manage-window --action resize --width 1920 --height 1080 --window-id "
 tauri-mcp manage-window --action list
 
 # 2. 在 secondary 窗口执行操作
-tauri-mcp webview-screenshot --file popup.png --window-id "secondary"
+tauri-mcp webview-screenshot --file screenshots/tauri/popup.png --window-id "secondary"
 tauri-mcp webview-interact --action click --selector "#close" --window-id "secondary"
 
 # 3. 调整副窗口大小

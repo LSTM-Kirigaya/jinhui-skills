@@ -110,7 +110,7 @@ browser-use cloud connect
 # 3. 正常使用
 browser-use open https://example.com
 browser-use state
-browser-use screenshot cloud.png
+browser-use screenshot screenshots/web/cloud.png
 
 # 4. 关闭（停止云端浏览器）
 browser-use close

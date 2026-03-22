@@ -103,7 +103,7 @@ browser-use open https://example.com
 browser-use state
 
 # 3. 截图
-browser-use screenshot test.png
+browser-use screenshot screenshots/web/test.png
 
 # 4. 关闭浏览器
 browser-use close

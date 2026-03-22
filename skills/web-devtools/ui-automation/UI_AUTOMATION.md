@@ -14,14 +14,14 @@ description: Web UI 自动化操作指南。提供浏览器自动化核心功能
 捕获网页当前画面。
 
 ```bash
-# 基础截图
-browser-use screenshot output.png
+# 基础截图（推荐保存到 screenshots 文件夹）
+browser-use screenshot screenshots/web/output.png
 
 # 不保存文件，输出 base64
 browser-use screenshot
 
 # 完整页面截图
-browser-use screenshot --full fullpage.png
+browser-use screenshot --full screenshots/web/fullpage.png
 ```
 
 **输出示例（无路径）：**
@@ -311,7 +311,7 @@ browser-use python "
 for i in range(5):
     browser.scroll('down')
     browser.wait(0.5)
-browser.screenshot('scrolled.png')
+browser.screenshot('screenshots/web/scrolled.png')
 "
 ```
 
@@ -326,13 +326,13 @@ browser.screenshot('scrolled.png')
 browser-use state
 
 # 2. 截图
-browser-use screenshot before.png
+browser-use screenshot screenshots/web/before.png
 
 # 3. 操作
 browser-use click 5
 
 # 4. 验证
-browser-use screenshot after.png
+browser-use screenshot screenshots/web/after.png
 ```
 
 ### 技巧 2：批量获取信息

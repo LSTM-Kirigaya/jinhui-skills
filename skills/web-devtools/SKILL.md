@@ -28,8 +28,8 @@ browser-use open https://example.com
 # 查看页面状态（含可点击元素索引）
 browser-use state
 
-# 截图
-browser-use screenshot output.png
+# 截图（推荐保存到 screenshots 文件夹）
+browser-use screenshot screenshots/web/output.png
 
 # 关闭浏览器
 browser-use close
@@ -171,7 +171,7 @@ Browser Use 云平台功能。
 browser-use open https://example.com
 
 # 2. 截图查看
-browser-use screenshot issue.png
+browser-use screenshot screenshots/web/issue.png
 
 # 3. 获取页面状态
 browser-use state
@@ -198,7 +198,7 @@ browser-use select 2 "Option A"        # 下拉选择
 browser-use click 5
 
 # 5. 截图验证
-browser-use screenshot result.png
+browser-use screenshot screenshots/web/result.png
 
 # 6. 关闭
 browser-use close
@@ -216,7 +216,7 @@ browser-use cloud connect
 # 3. 正常使用
 browser-use open https://example.com
 browser-use state
-browser-use screenshot cloud.png
+browser-use screenshot screenshots/web/cloud.png
 
 # 4. 关闭（同时停止云端浏览器）
 browser-use close
