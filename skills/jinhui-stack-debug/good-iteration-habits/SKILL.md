@@ -29,7 +29,7 @@ description: 良好的软件迭代习惯指南。Use when planning or executing 
    - 检查 CI/CD 配置中的测试步骤
 
 2. **如果没有测试集：**
-   - 参考测试集构建指南：`../build-test-suite/SKILL.md`
+   - 参考测试集构建指南：`./build-test-suite/SKILL.md`
    - 优先构建后端功能测试
    - 确保核心功能有测试覆盖后再继续开发
 
@@ -171,7 +171,7 @@ description: 良好的软件迭代习惯指南。Use when planning or executing 
 
 ## 检查清单
 
-- [ ] 项目是否有测试集（无则参考 `../build-test-suite/SKILL.md`）
+- [ ] 项目是否有测试集（无则参考 `./build-test-suite/SKILL.md`）
 - [ ] 新需求是否已拆解为前端/后端功能点表格
 - [ ] 是否已调研现有接口，优先复用而非新建
 - [ ] 是否已评估对现有功能的影响
