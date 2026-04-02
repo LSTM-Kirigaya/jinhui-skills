@@ -1,6 +1,6 @@
 ---
 name: good-iteration-habits
-description: 良好的软件迭代习惯指南。Use when planning or executing software development iterations for: (1) Initializing projects with proper test coverage checks, (2) Implementing new features by reusing existing APIs instead of creating new ones, (3) Analyzing feature dependencies before implementation, (4) Preventing feature conflicts through dependency analysis, (5) Breaking down requirements into frontend/backend components and evaluating existing implementations.
+description: 良好的软件迭代习惯指南。Use when planning or executing software development iterations for: (1) Initializing projects with proper test coverage checks, (2) Implementing new features by reusing existing APIs instead of creating new ones, (3) Analyzing feature dependencies before implementation, (4) Preventing feature conflicts through dependency analysis, (5) Breaking down requirements into frontend/backend components and evaluating existing implementations, (6) Refactoring UI components while preserving all functionality.
 ---
 
 # 良好的软件迭代习惯
@@ -150,7 +150,59 @@ description: 良好的软件迭代习惯指南。Use when planning or executing 
 
 ---
 
+### 习惯四：重构验证
+
+> **重构或优化 UI 组件或页面时，确保功能完整性，不丢失任何交互或数据展示功能。**
+
+**适用场景：**
+- 用户要求重构某个功能模块
+- 优化页面布局或组件样式
+- 重做某个交互功能
+
+**执行流程：**
+
+详细指南请参考：[重构功能完整性验证](./refactoring-with-verification/SKILL.md)
+
+#### 步骤 1：获取当前状态
+- 截图记录重构前的页面状态
+- 分析相关代码实现
+
+#### 步骤 2：功能清单化
+创建两个表格：
+- **表格 A**：所有可交互功能点（按钮、链接、表单等）
+- **表格 B**：所有数据展示功能点（文本、列表、图表等）
+
+#### 步骤 3：用户确认
+向用户展示功能清单，明确：
+- 哪些功能保留
+- 哪些功能修改
+- 哪些功能删除
+
+#### 步骤 4：执行重构
+根据确认的范围修改代码
+
+#### 步骤 5：功能验证
+- 截图对比
+- 逐一测试交互功能
+- 逐一验证数据展示
+
+#### 步骤 6：对比检查
+确保：
+- 所有保留功能正常工作
+- 无意外删除的功能
+- 新功能按需求实现
+
+**原则：**
+- ✅ 重构前必须先记录当前功能清单
+- ✅ 重构后必须验证所有保留功能
+- ❌ 禁止在未确认功能清单的情况下直接重构
+- ❌ 禁止在验证通过前认为重构完成
+
+---
+
 ## 迭代工作流程
+
+### 新需求开发流程
 
 ```
 接收需求
@@ -167,13 +219,49 @@ description: 良好的软件迭代习惯指南。Use when planning or executing 
     └─ 高风险冲突 → 生成冲突报告，等待用户决策
 ```
 
+### 重构优化流程
+
+```
+接收重构/优化需求
+    ↓
+[习惯四] 获取当前状态 → 截图 + 代码分析
+    ↓
+[习惯四] 功能清单化 → 列出所有交互和数据展示点
+    ↓
+[习惯四] 用户确认 → 展示功能清单并确认范围
+    ↓
+[习惯三] 影响评估 → 评估对关联功能的影响
+    ↓
+    ├─ 范围明确/无冲突 → 执行重构
+    └─ 存在冲突/范围不清 → 澄清后再继续
+    ↓
+[习惯四] 功能验证 → 截图 + 交互测试 + 对比检查
+    ↓
+    ├─ 功能完整 → 完成
+    └─ 功能丢失 → 修复后重新验证
+```
+
 ---
 
 ## 检查清单
+
+### 新需求开发
 
 - [ ] 项目是否有测试集（无则参考 `./build-test-suite/SKILL.md`）
 - [ ] 新需求是否已拆解为前端/后端功能点表格
 - [ ] 是否已调研现有接口，优先复用而非新建
 - [ ] 是否已评估对现有功能的影响
 - [ ] 高风险改动是否已生成冲突报告并获用户确认
+- [ ] 提交前是否已运行全部测试
+
+### 重构优化
+
+- [ ] 是否已获取重构前截图（参考 `./refactoring-with-verification/SKILL.md`）
+- [ ] 是否已列出所有交互功能点（表格 A）
+- [ ] 是否已列出所有数据展示点（表格 B）
+- [ ] 是否与用户确认功能清单和重构范围
+- [ ] 是否已评估对关联功能的影响
+- [ ] 重构后是否逐一验证所有保留功能
+- [ ] 是否获取重构后截图进行对比
+- [ ] 是否确认无功能被意外删除
 - [ ] 提交前是否已运行全部测试
