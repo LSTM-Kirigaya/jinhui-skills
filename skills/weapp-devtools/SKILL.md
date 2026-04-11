@@ -1,8 +1,14 @@
 ---
 name: weapp-devtools
-description: 用于调试微信小程序的自动化工具集，基于 miniprogram-automator 封装，提供截图、元素检查、页面导航、网络 Mock 等功能。Use when working with WeChat Mini Programs for: (1) Debugging UI with screenshots and element inspection, (2) Automating interactions like clicks, input, and swipes, (3) Navigating between pages and tabs, (4) Mocking network requests, (5) Reading console logs and errors.
+description: "用于调试微信小程序的自动化工具集，基于 miniprogram-automator 封装，提供截图、元素检查、页面导航、网络 Mock 等功能。Use when working with WeChat Mini Programs for: (1) Debugging UI with screenshots and element inspection, (2) Automating interactions like clicks, input, and swipes, (3) Navigating between pages and tabs, (4) Mocking network requests, (5) Reading console logs and errors."
+tags:
+  - 微信小程序
+  - 小程序
+  - 调试
+  - 自动化
+model: deepseek-chat
+rootUrl: https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/refs/heads/main/skills/weapp-devtools/SKILL.md
 ---
-
 # WeApp DevTools
 
 用于调试微信小程序的自动化工具集，基于 miniprogram-automator 封装，提供截图、元素检查、页面导航、网络 Mock 等功能。
@@ -203,3 +209,20 @@ mrc back --port 9420
 - [miniprogram-automator 官方文档](https://developers.weixin.qq.com/miniprogram/dev/devtools/auto/automator.html)
 - [微信开发者工具文档](https://developers.weixin.qq.com/miniprogram/dev/devtools/cli.html)
 - [GitHub: miniprogram-remote-control](https://github.com/LSTM-Kirigaya/miniprogram-remote-control)
+## Usage Examples
+
+### Example 1
+
+**User:**
+请帮我启动微信小程序开发者工具自动化，截图查看当前页面，并检查是否有控制台报错。
+
+**AI:**
+我将根据你的请求，使用本 Skill 中的工具和调试流程来帮助你完成任务。
+
+### Example 2
+
+**User:**
+我想测试小程序的页面导航功能，帮我切换到社区 Tab，点击一个元素后查看页面栈信息。
+
+**AI:**
+我将根据你的请求，使用本 Skill 中的工具和调试流程来帮助你完成任务。

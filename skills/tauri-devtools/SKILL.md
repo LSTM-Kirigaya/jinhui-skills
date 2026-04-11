@@ -1,8 +1,14 @@
 ---
 name: tauri-devtools
-description: 用于调试 Tauri 应用的 MCP 工具集，提供截图、DOM 检查、元素交互、IPC 监控等功能。Use when working with Tauri applications for: (1) Debugging UI issues with screenshots and DOM inspection, (2) Automating UI interactions like clicks and input, (3) Monitoring IPC communication between frontend and backend, (4) Managing Tauri windows and sessions, (5) Reading console and system logs.
+description: "用于调试 Tauri 应用的 MCP 工具集，提供截图、DOM 检查、元素交互、IPC 监控等功能。Use when working with Tauri applications for: (1) Debugging UI issues with screenshots and DOM inspection, (2) Automating UI interactions like clicks and input, (3) Monitoring IPC communication between frontend and backend, (4) Managing Tauri windows and sessions, (5) Reading console and system logs."
+tags:
+  - tauri
+  - 桌面应用
+  - 调试
+  - mcp
+model: deepseek-chat
+rootUrl: https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/refs/heads/main/skills/tauri-devtools/SKILL.md
 ---
-
 # Tauri DevTools
 
 用于调试 Tauri 应用的 MCP 工具集，提供截图、DOM 检查、元素交互、IPC 监控等功能。
@@ -193,3 +199,20 @@ tauri-mcp ipc-monitor --action stop
 
 - [MCP Server Tauri 官方文档](https://github.com/hypothesi/mcp-server-tauri)
 - [Tauri 官方文档](https://tauri.app)
+## Usage Examples
+
+### Example 1
+
+**User:**
+我的 Tauri 应用启动后界面卡住了，请帮我连接应用、截图查看当前状态，并检查控制台日志。
+
+**AI:**
+我将根据你的请求，使用本 Skill 中的工具和调试流程来帮助你完成任务。
+
+### Example 2
+
+**User:**
+帮我测试 Tauri 应用中的一个按钮点击事件，先截图记录初始状态，点击后再截图对比。
+
+**AI:**
+我将根据你的请求，使用本 Skill 中的工具和调试流程来帮助你完成任务。

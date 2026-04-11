@@ -1,0 +1,63 @@
+{
+  "model": "deepseek-chat",
+  "examples": [
+    {
+      "prompt": "我的小程序在本地运行正常，但上线后页面白屏了，请帮我按依赖关系逐层排查可能的原因。",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "分析用户请求：「我的小程序在本地运行正常，但上线后页面白屏了，请帮我按依赖关系逐层排查可能的原因。」。将拆解步骤并调用合适工具完成目标。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "./README.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "write_file",
+          "toolInput": {
+            "path": "./output.txt",
+            "content": "已处理：我的小程序在本地运行正常，但上线后页面白屏了，请帮我按依赖关系逐层排查可能的原因。"
+          }
+        },
+        {
+          "type": "message",
+          "content": "已根据你的请求完成处理：「我的小程序在本地运行正常，但上线后页面白屏了，请帮我按依赖关系逐层排查可能的原因。」。\n\n步骤摘要：\n1. 理解需求\n2. 读取上下文\n3. 生成结果\n\n以上为演示轨迹，上传时将一并提交。"
+        }
+      ],
+      "model": "deepseek-chat"
+    },
+    {
+      "prompt": "前端页面显示的数据和预期不一致，请帮我分析是前端渲染问题还是后端接口数据问题。",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "分析用户请求：「前端页面显示的数据和预期不一致，请帮我分析是前端渲染问题还是后端接口数据问题。」。将拆解步骤并调用合适工具完成目标。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "./README.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "write_file",
+          "toolInput": {
+            "path": "./output.txt",
+            "content": "已处理：前端页面显示的数据和预期不一致，请帮我分析是前端渲染问题还是后端接口数据问题。"
+          }
+        },
+        {
+          "type": "message",
+          "content": "已根据你的请求完成处理：「前端页面显示的数据和预期不一致，请帮我分析是前端渲染问题还是后端接口数据问题。」。\n\n步骤摘要：\n1. 理解需求\n2. 读取上下文\n3. 生成结果\n\n以上为演示轨迹，上传时将一并提交。"
+        }
+      ],
+      "model": "deepseek-chat"
+    }
+  ]
+}

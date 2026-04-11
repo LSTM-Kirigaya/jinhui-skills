@@ -1,8 +1,14 @@
 ---
 name: web-devtools
-description: 基于 browser-use CLI 的浏览器自动化调试工具集，提供网页控制、元素交互、截图、Cookie 管理、云端浏览器等功能。Use when working with web applications for: (1) Browser automation and UI testing, (2) Taking screenshots and inspecting page elements, (3) Filling forms and simulating user interactions, (4) Managing cookies and sessions, (5) Using cloud-based browsers for remote debugging, (6) Creating tunnels for local development servers.
+description: "基于 browser-use CLI 的浏览器自动化调试工具集，提供网页控制、元素交互、截图、Cookie 管理、云端浏览器等功能。Use when working with web applications for: (1) Browser automation and UI testing, (2) Taking screenshots and inspecting page elements, (3) Filling forms and simulating user interactions, (4) Managing cookies and sessions, (5) Using cloud-based browsers for remote debugging, (6) Creating tunnels for local development servers."
+tags:
+  - 前端
+  - 开发
+  - browser-use
+  - 浏览器自动化
+model: deepseek-chat
+rootUrl: https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/refs/heads/main/skills/web-devtools/SKILL.md
 ---
-
 # Web DevTools
 
 基于 browser-use CLI 的浏览器自动化调试工具集，提供网页控制、元素交互、截图、Cookie 管理、云端浏览器等功能。
@@ -241,3 +247,20 @@ browser-use close
 - [Browser Use 官方文档](https://docs.browser-use.com/)
 - [Browser Use GitHub](https://github.com/browser-use/browser-use)
 - [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/)
+## Usage Examples
+
+### Example 1
+
+**User:**
+请帮我打开 https://example.com，截图检查页面状态，并查看页面上有哪些可交互元素。
+
+**AI:**
+我将根据你的请求，使用本 Skill 中的工具和调试流程来帮助你完成任务。
+
+### Example 2
+
+**User:**
+我想测试一个表单页面，帮我自动填写姓名和邮箱，然后提交并截图验证结果。
+
+**AI:**
+我将根据你的请求，使用本 Skill 中的工具和调试流程来帮助你完成任务。

@@ -1,0 +1,63 @@
+{
+  "model": "deepseek-chat",
+  "examples": [
+    {
+      "prompt": "我的 Tauri 应用启动后界面卡住了，请帮我连接应用、截图查看当前状态，并检查控制台日志。",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "分析用户请求：「我的 Tauri 应用启动后界面卡住了，请帮我连接应用、截图查看当前状态，并检查控制台日志。」。将拆解步骤并调用合适工具完成目标。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "./README.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "write_file",
+          "toolInput": {
+            "path": "./output.txt",
+            "content": "已处理：我的 Tauri 应用启动后界面卡住了，请帮我连接应用、截图查看当前状态，并检查控制台日志。"
+          }
+        },
+        {
+          "type": "message",
+          "content": "已根据你的请求完成处理：「我的 Tauri 应用启动后界面卡住了，请帮我连接应用、截图查看当前状态，并检查控制台日志。」。\n\n步骤摘要：\n1. 理解需求\n2. 读取上下文\n3. 生成结果\n\n以上为演示轨迹，上传时将一并提交。"
+        }
+      ],
+      "model": "deepseek-chat"
+    },
+    {
+      "prompt": "帮我测试 Tauri 应用中的一个按钮点击事件，先截图记录初始状态，点击后再截图对比。",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "分析用户请求：「帮我测试 Tauri 应用中的一个按钮点击事件，先截图记录初始状态，点击后再截图对比。」。将拆解步骤并调用合适工具完成目标。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "./README.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "write_file",
+          "toolInput": {
+            "path": "./output.txt",
+            "content": "已处理：帮我测试 Tauri 应用中的一个按钮点击事件，先截图记录初始状态，点击后再截图对比。"
+          }
+        },
+        {
+          "type": "message",
+          "content": "已根据你的请求完成处理：「帮我测试 Tauri 应用中的一个按钮点击事件，先截图记录初始状态，点击后再截图对比。」。\n\n步骤摘要：\n1. 理解需求\n2. 读取上下文\n3. 生成结果\n\n以上为演示轨迹，上传时将一并提交。"
+        }
+      ],
+      "model": "deepseek-chat"
+    }
+  ]
+}

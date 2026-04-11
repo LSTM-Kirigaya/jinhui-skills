@@ -1,0 +1,63 @@
+{
+  "model": "deepseek-chat",
+  "examples": [
+    {
+      "prompt": "请帮我启动微信小程序开发者工具自动化，截图查看当前页面，并检查是否有控制台报错。",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "分析用户请求：「请帮我启动微信小程序开发者工具自动化，截图查看当前页面，并检查是否有控制台报错。」。将拆解步骤并调用合适工具完成目标。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "./README.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "write_file",
+          "toolInput": {
+            "path": "./output.txt",
+            "content": "已处理：请帮我启动微信小程序开发者工具自动化，截图查看当前页面，并检查是否有控制台报错。"
+          }
+        },
+        {
+          "type": "message",
+          "content": "已根据你的请求完成处理：「请帮我启动微信小程序开发者工具自动化，截图查看当前页面，并检查是否有控制台报错。」。\n\n步骤摘要：\n1. 理解需求\n2. 读取上下文\n3. 生成结果\n\n以上为演示轨迹，上传时将一并提交。"
+        }
+      ],
+      "model": "deepseek-chat"
+    },
+    {
+      "prompt": "我想测试小程序的页面导航功能，帮我切换到社区 Tab，点击一个元素后查看页面栈信息。",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "分析用户请求：「我想测试小程序的页面导航功能，帮我切换到社区 Tab，点击一个元素后查看页面栈信息。」。将拆解步骤并调用合适工具完成目标。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "./README.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "write_file",
+          "toolInput": {
+            "path": "./output.txt",
+            "content": "已处理：我想测试小程序的页面导航功能，帮我切换到社区 Tab，点击一个元素后查看页面栈信息。"
+          }
+        },
+        {
+          "type": "message",
+          "content": "已根据你的请求完成处理：「我想测试小程序的页面导航功能，帮我切换到社区 Tab，点击一个元素后查看页面栈信息。」。\n\n步骤摘要：\n1. 理解需求\n2. 读取上下文\n3. 生成结果\n\n以上为演示轨迹，上传时将一并提交。"
+        }
+      ],
+      "model": "deepseek-chat"
+    }
+  ]
+}
