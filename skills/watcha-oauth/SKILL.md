@@ -1,7 +1,7 @@
 ---
 name: watcha-oauth
 description: 观猹（Watcha）OAuth2.0 接入指南。用于帮助开发者完成观猹 Authorization Code 授权流程，包括客户端申请、授权页跳转、Token 换取、用户信息获取、Token 刷新与校验。适用于 Web 应用、移动 App 等场景，支持 PKCE 扩展。
-rootUrl: file:///Users/kirigaya/project/jinhui-skills/skills/watcha-oauth/SKILL.md
+rootUrl: https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/refs/heads/main/skills/watcha-oauth/SKILL.md
 tags:
   - oauth
   - watcha
