@@ -1,0 +1,61 @@
+{
+  "model": "deepseek-chat",
+  "examples": [
+    {
+      "prompt": "帮我接入观猹 OAuth2.0，我需要引导用户授权并获取用户信息的完整代码示例。",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "用户需要观猹 OAuth2.0 的完整接入代码示例，包括引导授权和获取用户信息。我需要先读取 skill 中的参考文档和脚本示例，然后提供针对性的实现指导。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/watcha-oauth/references/authorization-flow.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/watcha-oauth/references/api-reference.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/watcha-oauth/scripts/watcha-oauth-example.py"
+          }
+        },
+        {
+          "type": "message",
+          "content": "以下是观猹 OAuth2.0 的完整接入流程和代码示例：\n\n### 1. 引导用户授权\n生成授权链接（含 PKCE）：\n```python\nimport urllib.parse\n\nauthorize_url = (\n    'https://watcha.cn/oauth/authorize?'\n    + urllib.parse.urlencode({\n        'response_type': 'code',\n        'client_id': CLIENT_ID,\n        'redirect_uri': REDIRECT_URI,\n        'scope': 'read email',\n        'state': 'random_string',\n        'code_challenge': code_challenge,\n        'code_challenge_method': 'S256',\n    })\n)\n```\n\n### 2. 回调中换取 Token\n```python\ndata = {\n    'grant_type': 'authorization_code',\n    'code': auth_code,\n    'redirect_uri': REDIRECT_URI,\n    'client_id': CLIENT_ID,\n    'client_secret': CLIENT_SECRET,\n    'code_verifier': code_verifier,\n}\nresp = requests.post('https://watcha.cn/oauth/api/token', data=data)\ntoken = resp.json()['access_token']\n```\n\n### 3. 获取用户信息\n```python\nresp = requests.get(\n    'https://watcha.cn/oauth/api/userinfo',\n    params={'access_token': token}\n)\nuser = resp.json()['data']\n```\n\n注意：client_id 中的 `+` 需要 URL 编码为 `%2B`。"
+        }
+      ],
+      "model": "deepseek-chat"
+    },
+    {
+      "prompt": "观猹 OAuth2 的 client_id 包含特殊字符，我该怎么正确处理回调和 URL 编码？",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "用户遇到了 client_id 包含特殊字符导致解析失败的问题。我需要从 skill 的参考文档中提取各语言的 URL 编码处理方式，并给出明确的解决方案。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/watcha-oauth/references/authorization-flow.md"
+          }
+        },
+        {
+          "type": "message",
+          "content": "观猹的 `client_id` 确实可能包含 `+`、`/`、`=` 等特殊字符，在 URL 中传递时**必须**进行 URL 编码，否则服务端会解析失败。\n\n### 各语言示例\n\n**JavaScript**\n```js\nencodeURIComponent(clientId)\n```\n\n**Python**\n```python\nfrom urllib.parse import quote\nquote(client_id, safe='')\n```\n\n**Go**\n```go\nurl.QueryEscape(clientId)\n```\n\n### 示例\n若 `client_id` 为 `1p9Mcr+CNLPAMFC0`，编码后应为 `1p9Mcr%2BCNLPAMFC0`（`+` → `%2B`）。\n\n建议在构建授权 URL 时，始终使用语言标准库的 URL 编码函数处理 `client_id` 和 `redirect_uri` 中的参数值。"
+        }
+      ],
+      "model": "deepseek-chat"
+    }
+  ]
+}
