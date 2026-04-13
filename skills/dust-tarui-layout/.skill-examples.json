@@ -1,0 +1,82 @@
+{
+  "model": "deepseek-chat",
+  "examples": [
+    {
+      "prompt": "请帮我用Tauri构建一个用来进行笔记管理的软件，风格的话就采用宣纸黄作为背景，丹青朱砂的青色作为主题颜色。请你帮我根据 skill 来初始化这个项目的主体。",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "用户要用 Tauri 构建笔记管理软件，指定了宣纸黄背景和丹青朱砂青主题色。我需要先读取 dust-tarui-layout skill 了解窗口框架、应用外壳和顶栏结构，然后基于这些约束初始化项目主体，并给出配色映射建议。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/dust-tarui-layout/SKILL.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/dust-tarui-layout/window-frame/index.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/dust-tarui-layout/app-shell/index.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/dust-tarui-layout/title-bar/index.md"
+          }
+        },
+        {
+          "type": "message",
+          "content": "好的，我基于 `dust-tarui-layout` 来帮你初始化这个笔记管理软件的 Tauri 主体。\n\n### 1. 窗口配置（`tauri.conf.json`）\n```json\n{\n  \"app\": {\n    \"windows\": [{\n      \"decorations\": false,\n      \"transparent\": true,\n      \"shadow\": false,\n      \"width\": 1200,\n      \"height\": 800,\n      \"minWidth\": 800,\n      \"minHeight\": 600\n    }]\n  }\n}\n```\n\n### 2. 根布局（`App.tsx`）\n采用「顶栏 + 主内容区」上下两段：\n- 外层：`flex flex-col overflow-hidden h-screen rounded-[12px] border`（宣纸黄背景 `#F7F1E3`）\n- 顶栏：`h-10 sticky top-0 shrink-0`，左侧品牌+搜索，右侧设置/窗口按钮\n- 主区：`flex-1 min-h-0 overflow-y-auto p-4`，内部左侧为笔记列表（固定宽 `w-72`），右侧为编辑区\n\n### 3. 主题色映射（MUI `createTheme`）\n- 背景/表面：`#F7F1E3`（宣纸黄）\n- 主色/强调：`#2A6E6B`（丹青青）或 `#C84A3E`（朱砂，用于重点按钮）\n- 文字：深墨 `#2C2C2C`，次级文字 `#5A5A5A`\n- 分隔线：淡墨 `rgba(44,44,44,0.1)`\n\n### 4. 下一步\n如果你提供具体的技术栈版本（如 Vite + React 18 或 Next.js），我可以直接生成完整的项目脚手架和 `src` 目录代码。"
+        }
+      ],
+      "model": "deepseek-chat"
+    },
+    {
+      "prompt": "现在我想要做一个和微信差不多的即时社交通信工具，请你用我的skill来帮我构建一个这样的软件的 UI。",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "用户要做类似微信的即时通讯工具 UI。微信典型布局是「左侧窄边栏（通讯录）+ 右侧主聊天区」。我需要基于 dust-tarui-layout 的窗口框架、顶栏和应用外壳约束，把主内容区改造成三栏/两栏的即时通讯布局。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/dust-tarui-layout/SKILL.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/dust-tarui-layout/title-bar/index.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/dust-tarui-layout/app-shell/index.md"
+          }
+        },
+        {
+          "type": "message",
+          "content": "没问题，我基于 `dust-tarui-layout` 帮你搭建一个「微信风格」的即时通讯 UI 骨架。\n\n### 整体结构（`App.tsx`）\n\n仍然是 Tauri 无边框窗口 + 自绘顶栏，但主内容区拆成 **三栏** 或 **两栏**：\n\n```tsx\n<div className=\"flex flex-col h-screen overflow-hidden rounded-[12px] border\">\n  {/* 顶栏：全局搜索 + 添加好友 + 设置 + 窗口按钮 */}\n  <header className=\"h-10 sticky top-0 shrink-0 flex items-center justify-between px-3\" data-tauri-drag-region>\n    <div className=\"flex items-center gap-2\">\n      <span className=\"font-semibold\">ChatApp</span>\n    </div>\n    <div className=\"flex items-center gap-2\">\n      <IconButton>搜索</IconButton>\n      <IconButton>添加</IconButton>\n      <IconButton>设置</IconButton>\n      {/* Win/Linux 窗口按钮 */}\n    </div>\n  </header>\n\n  {/* 主内容区：两栏 */}\n  <main className=\"flex-1 min-h-0 flex overflow-hidden\">\n    {/* 左侧：会话列表 */}\n    <aside className=\"w-72 shrink-0 border-r flex flex-col\">\n      <div className=\"flex-1 overflow-y-auto\">\n        {/* ChatItem 列表 */}\n      </div>\n    </aside>\n\n    {/* 右侧：聊天详情 */}\n    <section className=\"flex-1 flex flex-col min-w-0\">\n      {/* 聊天对象信息栏 */}\n      <div className=\"h-12 border-b flex items-center px-4\">\n        <span className=\"font-medium\">当前聊天对象</span>\n      </div>\n      {/* 消息列表 */}\n      <div className=\"flex-1 overflow-y-auto p-4\">\n        {/* MessageBubble 列表 */}\n      </div>\n      {/* 输入区 */}\n      <div className=\"h-32 border-t p-3\">\n        {/* 工具条 + 输入框 + 发送按钮 */}\n      </div>\n    </section>\n  </main>\n</div>\n```\n\n### 关键约束（来自 skill）\n1. **顶栏**保持 `h-10`，左侧预留 macOS 交通灯空间（`pl-16`），右侧放功能图标\n2. **主区滚动**：`main` 用 `flex-1 min-h-0` 且 `overflow-hidden`，内部各子区再各自 `overflow-y-auto`\n3. **圆角与边框**：外层容器 `rounded-[12px] border`，`shadow: false`\n4. **拖拽**：顶栏 `data-tauri-drag-region`，按钮阻止冒泡\n\n### 下一步\n如果你确认了配色方案（浅色/深色/跟随系统）和具体组件库偏好（MUI / Radix / 自研），我可以把完整的 `App.tsx`、主题配置和假数据直接写出来。"
+        }
+      ],
+      "model": "deepseek-chat"
+    }
+  ]
+}
