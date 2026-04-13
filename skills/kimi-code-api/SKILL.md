@@ -1,6 +1,14 @@
 ---
 name: kimi-code-api
-description: Kimi Code (api.kimi.com/coding) integration—OAuth 2.0 device flow, refresh tokens, OpenAI-compatible chat/models requests, KimiCLI User-Agent, and manual API key fallback. Use when wiring Kimi Code auth, Bearer tokens, or OpenAI-style clients against Kimi’s coding endpoint.
+description: Kimi Code (api.kimi.com/coding) 接入指南。支持 OAuth 2.0 设备码登录、Token 刷新、OpenAI 兼容的聊天/模型列表请求，以及手动 API Key 回退。适用于在模型列表中集成 Kimi Code、实现一键测试和正常对话请求的开发场景。
+rootUrl: https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/main/skills/kimi-code-api/SKILL.md
+tags:
+  - kimi
+  - api
+  - oauth
+  - openai-compatible
+  - coding
+model: deepseek-chat
 ---
 
 # Kimi Code API
