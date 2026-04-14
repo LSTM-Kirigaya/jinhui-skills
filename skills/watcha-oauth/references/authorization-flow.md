@@ -47,6 +47,10 @@ https://myapp.com/callback?error=access_denied&error_description=用户拒绝授
 
 ## Scope 说明
 
+Scope 用于控制第三方应用可获取的用户信息范围。用户在授权页面上会看到应用请求的具体权限，并可选择是否同意。
+
+### 可用 Scope
+
 | Scope | 说明 | 返回字段 |
 |-------|------|----------|
 | `read` | 基础用户信息（默认） | `user_id`、`nickname`、`avatar_url` |
@@ -54,8 +58,22 @@ https://myapp.com/callback?error=access_denied&error_description=用户拒绝授
 | `phone` | 用户手机号 | `phone` |
 
 - `read` 为基础权限，始终建议包含
-- 多个 scope 之间用空格分隔，例如 `scope=read email phone`
-- 在 URL 中传递时，空格会被编码为 `%20` 或 `+`
+- 多个 scope 之间用**空格**分隔，例如 `scope=read email phone`
+- scope 值在 URL 中传递时，空格会被编码为 `%20` 或 `+`
+
+### 示例
+
+仅获取基础信息：
+
+```
+scope=read
+```
+
+获取基础信息 + 邮箱 + 手机号：
+
+```
+scope=read email phone
+```
 
 ### 授权页面行为
 
