@@ -1,0 +1,68 @@
+{
+  "model": "deepseek-chat",
+  "examples": [
+    {
+      "prompt": "我新创建了一个项目，需要为前端、后端和 WebSocket 服务分配不会冲突的端口，请帮我从 ~/.port-man 获取或分配，并告诉我该把哪些端口写到配置文件里。",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "用户需要为新项目分配三个服务的端口：前端、后端和 WebSocket。我需要使用 port-manager skill 的脚本，查询 ~/.port-man 的现有记录，为每个服务获取或分配一个唯一的端口，然后告诉用户如何写入配置文件。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "shell",
+          "toolInput": {
+            "command": "python3 skills/port-manager/scripts/portman.py list"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "shell",
+          "toolInput": {
+            "command": "python3 skills/port-manager/scripts/portman.py get $(pwd) frontend"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "shell",
+          "toolInput": {
+            "command": "python3 skills/port-manager/scripts/portman.py get $(pwd) backend"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "shell",
+          "toolInput": {
+            "command": "python3 skills/port-manager/scripts/portman.py get $(pwd) websocket"
+          }
+        },
+        {
+          "type": "message",
+          "content": "已为你的项目分配好端口并记录到 `~/.port-man`：\n\n- **frontend**：3001\n- **backend**：3002\n- **websocket**：3003\n\n你可以将这些端口写入项目配置文件，例如 `.env`：\n\n```env\nFRONTEND_PORT=3001\nBACKEND_PORT=3002\nWEBSOCKET_PORT=3003\n```\n\n下次再为该项目的这些服务请求端口时，会直接返回已记录的端口，避免冲突。"
+        }
+      ],
+      "model": "deepseek-chat"
+    },
+    {
+      "prompt": "帮我看一下现在电脑上已经有哪些项目和服务占用了端口，避免我新建项目的时候重复。",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "用户想查看当前电脑上所有项目已分配的端口记录，以便新建项目时避免冲突。我需要执行 portman.py list 命令来展示 ~/.port-man 中的数据。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "shell",
+          "toolInput": {
+            "command": "python3 skills/port-manager/scripts/portman.py list"
+          }
+        },
+        {
+          "type": "message",
+          "content": "当前 `~/.port-man` 中记录的端口分配如下：\n\n```json\n{\n  \"version\": \"1.0\",\n  \"projects\": {\n    \"/Users/me/project-a\": {\n      \"services\": {\n        \"frontend\": 3001,\n        \"backend\": 5001\n      }\n    }\n  }\n}\n```\n\n已占用的端口有：**3001、5001**。新建项目时，这些端口会被自动跳过，系统会分配新的可用端口给你。"
+        }
+      ],
+      "model": "deepseek-chat"
+    }
+  ]
+}
