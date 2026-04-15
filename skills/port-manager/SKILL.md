@@ -1,6 +1,13 @@
 ---
 name: port-manager
 description: "Manage and allocate network ports across multiple local projects to prevent port conflicts. Use when: (1) Starting a new development server and needing a free port, (2) Configuring multi-service projects (frontend/backend/devtools), (3) Avoiding collisions with other projects already using common ports like 3000 or 8080, (4) Reading or updating the global ~/.port-man registry."
+tags:
+  - port
+  - development
+  - devops
+  - cli
+model: deepseek-chat
+rootUrl: https://cdn.jsdelivr.net/gh/LSTM-Kirigaya/jinhui-skills@main/skills/port-manager/SKILL.md
 ---
 
 # Port Manager
