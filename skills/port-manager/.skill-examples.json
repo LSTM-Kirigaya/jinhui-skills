@@ -2,18 +2,11 @@
   "model": "deepseek-chat",
   "examples": [
     {
-      "prompt": "我新创建了一个项目，需要为前端、后端和 WebSocket 服务分配不会冲突的端口，请帮我从 ~/.port-man 获取或分配，并告诉我该把哪些端口写到配置文件里。",
+      "prompt": "我要启动这个前端项目的开发服务器，请帮我从 ~/.port-man 分配一个不冲突的端口，并用 PORT=xxx 的方式注入启动。",
       "aiResponses": [
         {
           "type": "thinking",
-          "content": "用户需要为新项目分配三个服务的端口：前端、后端和 WebSocket。我需要使用 port-manager skill 的脚本，查询 ~/.port-man 的现有记录，为每个服务获取或分配一个唯一的端口，然后告诉用户如何写入配置文件。"
-        },
-        {
-          "type": "toolcall",
-          "toolName": "shell",
-          "toolInput": {
-            "command": "python3 skills/port-manager/scripts/portman.py list"
-          }
+          "content": "用户要启动前端开发服务器，需要我先从 ~/.port-man 获取或分配一个端口，然后用 PORT=xxx 的方式注入到启动命令中。我应该先调用 portman.py get 获取端口，然后告诉用户如何执行注入端口的命令。"
         },
         {
           "type": "toolcall",
@@ -21,6 +14,20 @@
           "toolInput": {
             "command": "python3 skills/port-manager/scripts/portman.py get $(pwd) frontend"
           }
+        },
+        {
+          "type": "message",
+          "content": "已为你的前端服务分配端口：**3001**（已记录到 `~/.port-man`）。\n\n现在请用如下方式启动开发服务器，将端口注入环境变量：\n\n```bash\nPORT=3001 npm run dev\n```\n\n如果你的项目使用其他端口变量（如 `VITE_DEV_PORT`），可以替换为对应变量名。下次再启动时，可直接获取同一端口：`python3 skills/port-manager/scripts/portman.py get $(pwd) frontend`。"
+        }
+      ],
+      "model": "deepseek-chat"
+    },
+    {
+      "prompt": "帮我给这个项目的 backend 和 websocket 两个服务各分配一个端口，并告诉我怎么同时启动它们。",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "用户需要为 backend 和 websocket 两个服务分配端口，并同时启动。我需要分别调用 portman.py get 为两个服务获取端口，然后给出 PORT=xxx command 的注入启动示例。"
         },
         {
           "type": "toolcall",
@@ -38,28 +45,7 @@
         },
         {
           "type": "message",
-          "content": "已为你的项目分配好端口并记录到 `~/.port-man`：\n\n- **frontend**：3001\n- **backend**：3002\n- **websocket**：3003\n\n你可以将这些端口写入项目配置文件，例如 `.env`：\n\n```env\nFRONTEND_PORT=3001\nBACKEND_PORT=3002\nWEBSOCKET_PORT=3003\n```\n\n下次再为该项目的这些服务请求端口时，会直接返回已记录的端口，避免冲突。"
-        }
-      ],
-      "model": "deepseek-chat"
-    },
-    {
-      "prompt": "帮我看一下现在电脑上已经有哪些项目和服务占用了端口，避免我新建项目的时候重复。",
-      "aiResponses": [
-        {
-          "type": "thinking",
-          "content": "用户想查看当前电脑上所有项目已分配的端口记录，以便新建项目时避免冲突。我需要执行 portman.py list 命令来展示 ~/.port-man 中的数据。"
-        },
-        {
-          "type": "toolcall",
-          "toolName": "shell",
-          "toolInput": {
-            "command": "python3 skills/port-manager/scripts/portman.py list"
-          }
-        },
-        {
-          "type": "message",
-          "content": "当前 `~/.port-man` 中记录的端口分配如下：\n\n```json\n{\n  \"version\": \"1.0\",\n  \"projects\": {\n    \"/Users/me/project-a\": {\n      \"services\": {\n        \"frontend\": 3001,\n        \"backend\": 5001\n      }\n    }\n  }\n}\n```\n\n已占用的端口有：**3001、5001**。新建项目时，这些端口会被自动跳过，系统会分配新的可用端口给你。"
+          "content": "已分配端口并记录到 `~/.port-man`：\n\n- **backend**：3002\n- **websocket**：3003\n\n同时启动两个服务的示例：\n\n```bash\n# 启动 backend\nPORT=3002 npm run dev:backend &\n\n# 启动 websocket\nPORT=3003 npm run dev:websocket &\n```\n\n每个服务都会绑定到唯一端口，避免与电脑上其他项目冲突。"
         }
       ],
       "model": "deepseek-chat"

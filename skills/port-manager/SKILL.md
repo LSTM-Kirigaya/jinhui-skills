@@ -1,6 +1,6 @@
 ---
 name: port-manager
-description: "Manage and allocate network ports across multiple local projects to prevent port conflicts. Use when: (1) Starting a new development server and needing a free port, (2) Configuring multi-service projects (frontend/backend/devtools), (3) Avoiding collisions with other projects already using common ports like 3000 or 8080, (4) Reading or updating the global ~/.port-man registry."
+description: "Allocate and inject unique network ports for local development servers to avoid cross-project conflicts. ALWAYS use before starting a dev server: first run the portman script to get a free port from ~/.port-man, then prepend it as PORT=<port> to the original start command (e.g., PORT=3001 npm run dev). Use when: (1) Launching any development server (Vite, Webpack, Next.js, backend API, etc.), (2) Configuring multi-service projects, (3) Avoiding collisions with ports like 3000 or 8080 already used by other projects, (4) Reading or updating the global ~/.port-man registry."
 tags:
   - port
   - development
@@ -12,23 +12,36 @@ rootUrl: https://cdn.jsdelivr.net/gh/LSTM-Kirigaya/jinhui-skills@main/skills/por
 
 # Port Manager
 
-Manage project service ports globally via `~/.port-man` to avoid conflicts between multiple projects on the same machine.
+Allocate unique network ports for each project service and **inject them via environment variables** when launching development servers, preventing cross-project conflicts on the same machine.
+
+## Core Rule
+
+When this skill is active, **always obtain a port from `~/.port-man` first**, then prepend `PORT=<port>` (or the framework-specific port variable) to the original start command.
+
+```bash
+# 1. Allocate / retrieve the port for this service
+PORT=$(python3 skills/port-manager/scripts/portman.py get $(pwd) frontend)
+
+# 2. Launch the dev server with the port injected
+PORT=$PORT npm run dev
+```
+
+Most frontend tools (Vite, Next.js, CRA) respect the `PORT` environment variable. For frameworks that use a different variable, adjust accordingly:
+
+- `PORT` — Vite, Next.js, Create React App, Express, Fastify
+- `VITE_DEV_PORT` / `SERVER_PORT` — some custom setups
+- `--port` CLI flag — `npm run dev -- --port $PORT`
 
 ## Quick Start
 
-### Allocate a port for a service
+### Allocate a port and start a server
 
 ```bash
-python3 skills/port-manager/scripts/portman.py get <project_path> <service_name>
+PORT=$(python3 skills/port-manager/scripts/portman.py get $(pwd) frontend)
+PORT=$PORT npm run dev
 ```
 
-Example:
-```bash
-python3 skills/port-manager/scripts/portman.py get /Users/me/project-a frontend
-# Output: 3001
-```
-
-If the service already has a port assigned, it returns the existing port. Otherwise it allocates the next available port and records it.
+If the service already has a port assigned, the script returns the existing port. Otherwise it finds the next available port and records it.
 
 ### View all allocated ports
 
@@ -42,23 +55,30 @@ python3 skills/port-manager/scripts/portman.py list
 python3 skills/port-manager/scripts/portman.py free <project_path> <service_name>
 ```
 
-## Workflow for New Projects
+## Standard Workflow
 
-When configuring a new project (or a new service in an existing project):
+When starting any development server for a project:
 
-1. **Check existing allocations**:
+1. **Get the port** (allocating if necessary):
    ```bash
-   python3 skills/port-manager/scripts/portman.py list
+   PORT=$(python3 skills/port-manager/scripts/portman.py get $(pwd) web)
    ```
 
-2. **Allocate ports for each service**:
+2. **Inject it into the start command**:
    ```bash
-   python3 skills/port-manager/scripts/portman.py get $(pwd) web
-   python3 skills/port-manager/scripts/portman.py get $(pwd) api
-   python3 skills/port-manager/scripts/portman.py get $(pwd) websocket
+   PORT=$PORT npm run dev
    ```
 
-3. **Write the returned ports into the project's config files** (e.g., `.env`, `vite.config.ts`, `docker-compose.yml`).
+   Or for multiple services in the same project:
+   ```bash
+   FRONTEND_PORT=$(python3 skills/port-manager/scripts/portman.py get $(pwd) frontend)
+   BACKEND_PORT=$(python3 skills/port-manager/scripts/portman.py get $(pwd) backend)
+   
+   PORT=$FRONTEND_PORT npm run dev:web &
+   PORT=$BACKEND_PORT npm run dev:api &
+   ```
+
+3. **For persistent configs** (optional): write the returned ports into `.env` or `docker-compose.yml` so teammates or CI can see them, but keep the live command injection habit to guarantee the port is reserved.
 
 ## Data Format
 
@@ -80,7 +100,7 @@ When configuring a new project (or a new service in an existing project):
 
 ## Important Notes
 
-- Always use the **absolute path** of the project as the key.
-- The script automatically skips commonly reserved ports (e.g., 80, 443, 8080) to reduce collisions with system or hard-coded defaults.
-- If a service already has a recorded port, `get` returns it without modification.
-- Keep `~/.port-man` in version control only if it is machine-specific; do not commit it to shared repositories.
+- **Always inject the port via environment variable** (`PORT=xxx <command>`) rather than relying on hard-coded defaults.
+- The script skips commonly reserved ports (e.g., 80, 443, 8080) to reduce collisions.
+- Use the project's **absolute path** as the key.
+- Do not commit `~/.port-man` to shared repositories; it is machine-specific.
