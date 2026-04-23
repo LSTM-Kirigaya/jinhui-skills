@@ -211,14 +211,33 @@ python train.py --config configs/exp1.yaml
 
 ```
 Step 1: 确认项目名称和论文题目
-Step 2: 创建上述完整目录结构
-Step 3: 在 src/ 中生成 LaTeX 模板骨架
-Step 4: 在 experiments/ 中生成 server-access.md 模板
-Step 5: 在 references/ 中生成文献笔记模板
-Step 6: 在 scripts/ 中放置工具脚本
-Step 7: 生成 README.md 和 AGENTS.md
-Step 8: 验证目录完整性
+Step 2: 获取学校/学院 LaTeX 模板
+Step 3: 创建上述完整目录结构
+Step 4: 在 src/ 中生成 LaTeX 模板骨架
+Step 5: 在 experiments/ 中生成 server-access.md 模板
+Step 6: 在 references/ 中生成文献笔记模板
+Step 7: 在 scripts/ 中放置工具脚本
+Step 8: 生成 README.md 和 AGENTS.md
+Step 9: 验证目录完整性
 ```
+
+### Step 2 详细说明：获取学校/学院 LaTeX 模板
+
+在生成任何 LaTeX 骨架之前，**必须**先获取用户所在学校/学院的官方 LaTeX 模板。
+
+**流程：**
+1. 询问用户所在**学校**和**学院**
+2. 根据用户提供的信息，主动搜索该学校/学院是否有官方或社区维护的 LaTeX 模板（如 GitHub、学校研究生院官网等）
+3. 如果搜索到可用模板：
+   - 下载并使用该模板作为 `src/main.tex` 的基础
+   - 告知用户模板来源
+4. 如果**未搜索到**可用模板：
+   - 明确告知用户未找到对应模板
+   - **要求用户自行提供模板文件或模板链接**
+   - 在用户提供了有效的 LaTeX 模板之前，**拒绝推进后续初始化步骤**
+
+**拒绝话术示例：**
+> 未找到你所在学校/学院的 LaTeX 模板。请提供学校官方模板文件（`.tex` 或 `.zip`），或提供模板下载链接。在获取到正式模板之前，我无法继续初始化项目，以免生成的结构与学校要求不符。
 
 ---
 
