@@ -1,0 +1,40 @@
+{
+  "model": "deepseek-chat",
+  "examples": [
+    {
+      "prompt": "在当前 agent 系统中使用 duckduckgo 的 API 实现 websearch 服务",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "用户希望在 Agent 系统中集成 DuckDuckGo 的 Web Search API。根据 duckduckgo-websearch-api skill，我需要先读取参考文档，确认 API 端点、请求参数和 fallback 策略，然后给出完整的集成方案。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/duckduckgo-websearch-api/SKILL.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/duckduckgo-websearch-api/references/duckduckgo-http-api.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/duckduckgo-websearch-api/references/bing-text-search.md"
+          }
+        },
+        {
+          "type": "message",
+          "content": "下面是在 Agent 系统中集成 DuckDuckGo WebSearch 的完整方案，包含 DuckDuckGo 直连和 Bing 兜底两条链路：\n\n### 1. 统一搜索接口\n\n```typescript\ninterface SearchOptions {\n  query: string;\n  type?: 'text' | 'images' | 'videos' | 'news';\n  region?: string;        // 默认 'wt-wt'\n  safeSearch?: 'on' | 'moderate' | 'off';\n  maxResults?: number;\n}\n\ninterface SearchResult {\n  title: string;\n  url: string;\n  snippet?: string;\n  // images/videos/news 有额外字段\n}\n\nasync function webSearch(opts: SearchOptions): Promise<SearchResult[]> {\n  // 优先 DuckDuckGo；失败则 fallback Bing（仅文本）\n  try {\n    return await searchDuckDuckGo(opts);\n  } catch (e) {\n    if (opts.type === 'text' || !opts.type) {\n      console.warn('DuckDuckGo failed, falling back to Bing:', e.message);\n      return await searchBing(opts);\n    }\n    throw e;\n  }\n}\n```\n\n### 2. DuckDuckGo 实现要点\n\n- **图片/视频/新闻**：先 `GET https://duckduckgo.com?q=...` 抓 `vqd` token，再调用对应 `i.js` / `v.js` / `news.js`。\n- **文本搜索**：可直接用 `POST https://lite.duckduckgo.com/lite/` 解析 HTML，省掉 vqd 步骤。\n- **反爬虫**：带真实 UA、`Referer: https://duckduckgo.com/`、启用 cookie jar、间隔 0.75s、失败重试 3 次。\n\n### 3. Bing 兜底实现要点\n\n- `GET https://www.bing.com/search?q=...&pq=...&cc=...`\n- Cookie 设置 `_EDGE_CD` 和 `_EDGE_S` 做区域定位\n- 结果 URL 可能是 Bing 包装链接，需 Base64 解包提取原始地址\n- 过滤掉 `bing.com/aclick?` 广告链接\n\n### 4. 接入 Agent\n\n将 `webSearch` 封装为 Agent 的 Tool，返回结构化结果供下游 Reasoning 使用。无需 API Key，适合轻量级部署。"
+        }
+      ],
+      "model": "deepseek-chat"
+    }
+  ]
+}
