@@ -1,5 +1,7 @@
 # DuckDuckGo HTTP API Reference
 
+> **Implementation note:** This document describes the HTTP protocol between client and server. The actual Rust implementation uses `primp::Client` with `Impersonate::Chrome` (or `Random`) to send these requests with browser fingerprint simulation, which is required to bypass anti-bot checks on DuckDuckGo and Bing.
+
 DuckDuckGo does not publish an official search API. The endpoints below are reverse-engineered from its web interface and the `duckduckgo-search` Python library.
 
 **Base URLs:**

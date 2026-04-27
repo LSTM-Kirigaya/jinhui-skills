@@ -1,5 +1,7 @@
 # Bing Text Search Fallback
 
+> **Implementation note:** This document describes the HTTP protocol between client and server. The actual Rust implementation uses `primp::Client` with `Impersonate::Chrome` (or `Random`) to send these requests with browser fingerprint simulation, which is required to bypass anti-bot checks on Bing.
+
 When DuckDuckGo endpoints are blocked or return no results, Bing search serves as a reliable fallback for text search. The `duckduckgo-search` Python library uses Bing as its default backend for text queries.
 
 ## Endpoint
