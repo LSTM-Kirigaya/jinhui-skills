@@ -9,7 +9,7 @@ description: |
   follows this architecture.
 tags: ["go", "backend", "ddd", "gorm", "gin", "opentelemetry", "jwt", "oauth2"]
 model: deepseek-chat
-rootUrl: file:///Users/kirigaya/project/jinhui-skills/skills/ddd-go-backend/SKILL.md
+rootUrl: https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/main/skills/ddd-go-backend/SKILL.md
 examples:
   - 帮我通过重构文档和 ddd-go-backend 这个 skill 重新搭建一个新的 go 项目
   - 用这个 skill 给我的项目加一个用户管理模块，需要注册、登录、个人信息 CRUD
