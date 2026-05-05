@@ -7,6 +7,13 @@ description: |
   visualization, Zap logging, middleware patterns, and API routing. Use when
   creating a new Go backend service or adding features to an existing one that
   follows this architecture.
+tags: ["go", "backend", "ddd", "gorm", "gin", "opentelemetry", "jwt", "oauth2"]
+model: deepseek-chat
+rootUrl: file:///Users/kirigaya/project/jinhui-skills/skills/ddd-go-backend/SKILL.md
+examples:
+  - 帮我通过重构文档和 ddd-go-backend 这个 skill 重新搭建一个新的 go 项目
+  - 用这个 skill 给我的项目加一个用户管理模块，需要注册、登录、个人信息 CRUD
+  - 给现有 Go 服务加上 OpenTelemetry 链路追踪和 Jaeger 可视化
 ---
 
 # DDD Go Backend Service
@@ -73,6 +80,10 @@ project/
 4. Write handler in `internal/<module>/handler/` (parse request → call service → respond)
 5. Register routes in handler's `RegisterRoutes(r *gin.RouterGroup)` method
 6. Wire everything in `cmd/server/main.go`: create repo → create service → create handler → register routes
+
+## Usage Examples
+
+See the `examples` field in the frontmatter above.
 
 ## Key Conventions
 
