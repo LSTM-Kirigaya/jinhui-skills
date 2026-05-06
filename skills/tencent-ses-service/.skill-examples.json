@@ -1,0 +1,15 @@
+{
+  "model": "deepseek-chat",
+  "examples": [
+    {
+      "prompt": "我们当前系统的注册验证，请通过腾讯云的邮箱系统发送邮件给用户实现验证。",
+      "aiResponses": [],
+      "model": "deepseek-chat"
+    },
+    {
+      "prompt": "请将我们当前系统中的邮箱服务改为腾讯云的服务，并根据skill帮我来创建缺失的环境变量。一旦有系统中没有的，你需要跟我说一下。",
+      "aiResponses": [],
+      "model": "deepseek-chat"
+    }
+  ]
+}

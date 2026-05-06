@@ -5,6 +5,15 @@ description: |
   腾讯云官方的邮件推送 SES 服务使用 skill。
   涵盖：SMTP 发送邮件所需的全部环境变量、API 接口设计规范、验证码邮件的完整发送流程（含人机验证、频率控制、Redis 存储）。
   本 skill 以网络协议 / HTTP API 接口级别描述，不绑定具体编程语言。
+model: deepseek-chat
+tags:
+  - SES
+  - SMTP
+  - 腾讯云
+  - 邮件推送
+  - 验证码
+  - Redis
+rootUrl: https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/main/skills/tencent-ses-service/SKILL.md
 allowed-tools:
   - Read
   - Write
