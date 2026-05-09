@@ -1,0 +1,75 @@
+{
+  "model": "deepseek-chat",
+  "examples": [
+    {
+      "prompt": "我在做一个Go+Vue3的网站，需要给邮件验证码发送接口加一个人机验证。要求点击3D几何体来验证，避免被脚本批量刷接口。请帮我实现。",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "用户需要为邮件验证码接口添加 3D 几何体点击验证码，防止脚本批量调用。正好命中 3d-shape-captcha skill 的核心能力：后端生成 6 个大小互不相同的 3D 几何体元数据，前端用 Three.js 渲染并通过 Raycaster 检测点击。我需要先读取 skill 中的 Go 后端实现和 Vue3 前端组件，然后指导用户集成。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/3d-shape-captcha/assets/backend-captcha.go"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/3d-shape-captcha/assets/CaptchaDialog.vue"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/3d-shape-captcha/references/backend-api.md"
+          }
+        },
+        {
+          "type": "message",
+          "content": "已为你准备好了完整的 3D 几何体验证码集成方案。\n\n**后端集成（Go + Gin + Redis）：**\n\n1. 复制 `assets/backend-captcha.go` 到项目 `captcha/` 目录，注册路由：\n```go\napi.POST(\"/captcha/generate\", captcha.GenerateCaptcha)\napi.POST(\"/captcha/verify\", captcha.VerifyCaptcha)\n```\n\n2. 在邮件发送接口中加入 token 校验：\n```go\nif !captcha.ValidateCaptchaToken(redisClient, req.CaptchaToken) {\n    c.JSON(http.StatusOK, gin.H{\"success\": false, \"message\": \"请先完成图形验证\"})\n    return\n}\n```\n\n**前端集成（Vue3 + Three.js）：**\n\n1. 安装依赖：`npm install three`\n2. 复制 `CaptchaDialog.vue` 组件，在发送邮件前弹出：\n```vue\n<CaptchaDialog v-model=\"showCaptcha\" @success=\"onCaptchaSuccess\" />\n```\n\n**核心设计：**\n- 后端不渲染图片，只返回 6 个几何体的 JSON 元数据\n- 等比间距算法（0.15 基础步长 > 0.06 扰动范围）保证 6 个大小严格唯一\n- 2×3 网格布局 + 随机偏移（±0.4）防止重叠\n- 正交相机消除透视变形，公平大小比较\n- Redis 存储 capcha 数据和一次性 token，TTL 均为 5 分钟"
+        }
+      ],
+      "model": "deepseek-chat"
+    },
+    {
+      "prompt": "我们的验证码现在太容易被 OCR 破解了，想换成 3D 渲染的几何体识别，用户要点出最大或最小的那个。后端用 Go，前端用 Vue3+Three.js，请帮我设计一套完整的方案。",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "用户想把传统验证码替换为 3D 几何体识别型验证码，用户需要点击最大或最小的物体。这完全匹配 3d-shape-captcha skill 的场景。后端的核心挑战是生成 6 个大小严格不重复的几何体，以及用等比间距+微小扰动算法保证唯一性。我需要展示完整的后端生成逻辑和前端的 Three.js 渲染管线。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/3d-shape-captcha/references/backend-api.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/3d-shape-captcha/references/frontend-integration.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/3d-shape-captcha/assets/api-index.js"
+          }
+        },
+        {
+          "type": "message",
+          "content": "这里是一套完整的抗 OCR 的 3D 几何体验证码方案：\n\n**为什么传统验证码不行：**\nOCR 模型可以直接识别位图验证码，但 3D 渲染场景中的几何体需要空间理解能力——必须比较 6 个物体的相对体积，这远超 OCR 的能力范围。\n\n**后端核心逻辑（Go）：**\n\n```go\n// 比例尺算法核心：6 个等差基值 + 微小扰动，保证严格唯一\nbaseMin := 0.55\nbaseMax := 1.30\nstep := (baseMax - baseMin) / 5.0  // 0.15\nfor i := 0; i < 6; i++ {\n    base := baseMin + float64(i)*step\n    jitter := (rng.Float64() - 0.5) * 0.06  // ±0.03\n    scales[i] = base + jitter\n    // 相邻间距 0.15 > 2×0.03=0.06，数学上保证不重复\n}\nrng.Shuffle(scales)  // 打乱位置，增加不可预测性\n```\n\n**前端渲染要点：**\n- 正交相机 (OrthographicCamera, frustumSize=7.5) 消除透视畸变\n- 五级光源系统：环境光 + 半球光 + 方向主光(投影) + 补光 + 轮廓光\n- PCFSoftShadowMap 实现软阴影，增加视觉复杂度\n- Raycaster 检测点击物体，`userData.index` 回传后端验证\n\n**几何体类型：**\n| 类型 | 名称 | Three.js 几何体 |\n|---|---|---|\n| 0 | 正方体 | BoxGeometry(1,1,1) |\n| 1 | 圆柱体 | CylinderGeometry(0.5,0.5,1,32) |\n| 2 | 三角柱 | CylinderGeometry(0.5,0.5,1.25,3) |\n\n**防破解分析：**\n1. 无 PNG 输出——后端只返回 JSON，攻击者无法直接 OCR\n2. 体积比较需要 3D 空间感知——CV 模型难以精确估算 scale³\n3. 每次随机目标（最大 vs 最小）、随机类型、随机颜色\n4. Token 一次性使用，回放攻击无效"
+        }
+      ],
+      "model": "deepseek-chat"
+    }
+  ]
+}
