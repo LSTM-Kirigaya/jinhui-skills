@@ -1,6 +1,12 @@
 ---
 name: 3d-shape-captcha
 description: 基于 Three.js 实时渲染的 3D 几何体验证码系统，支持软阴影和 Raycaster 点击交互。后端生成 6 个大小严格互不相同的 3D 几何体元数据（位置、旋转、缩放、颜色、类型），前端使用多光源布光和正交相机实现公平大小比较。适用于实现或修改基于点击的 3D 几何体验证码，或将图形验证码集成到邮件验证码发送等敏感操作中。
+tags: ["captcha", "3d", "three.js", "go", "vue", "security"]
+model: deepseek-chat
+rootUrl: https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/main/skills/3d-shape-captcha/SKILL.md
+examples:
+  - 给邮件验证码发送接口加一个 3D 几何体点击验证码，防止被脚本批量刷接口
+  - 把现有图片验证码升级为 Three.js 3D 渲染的几何体识别验证码，增强抗 OCR 能力
 ---
 
 # 3D Shape CAPTCHA
