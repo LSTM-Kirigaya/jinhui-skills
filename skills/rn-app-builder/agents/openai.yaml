@@ -1,0 +1,4 @@
+interface:
+  display_name: "RN App Builder"
+  short_description: "一键构建生产级 React Native 移动应用"
+  default_prompt: "Use $rn-app-builder to scaffold a production-ready React Native mobile app."

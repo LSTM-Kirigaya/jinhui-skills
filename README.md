@@ -20,24 +20,6 @@
 
 <!-- 新技能请按字母顺序添加 -->
 
-### [expo-rn-blueprint](skills/expo-rn-mobile-app-blueprint/SKILL.md)
-
-在 monorepo 中搭建或迁移 Expo React Native 移动应用的蓝图。支持共享包、鉴权路由、模拟器硬件键盘输入，以及小程序到原生应用的迁移规范。
-
-**Copyright © 锦恢 [kirigaya.cn](https://kirigaya.cn)**
-
-**安装：**
-```
-请通过 https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/main/skills/expo-rn-mobile-app-blueprint/SKILL.md 安装该 skill。
-```
-
-**使用：**
-```
-帮我基于 Expo 搭建一个 React Native 移动应用...
-```
-
----
-
 ### [jinhui-stack-debug](skills/jinhui-stack-debug/SKILL.md)
 
 网站和小程序调试的依赖关系排查指南。当调试陷入僵局时，系统性地识别是哪一层依赖导致的问题：数据、环境、版本、配置、状态、网络、权限、缓存、构建、运行时。
@@ -52,6 +34,24 @@
 **使用：**
 ```
 这个页面功能不正常，帮我排查一下...
+```
+
+---
+
+### [rn-app-builder](skills/rn-app-builder/SKILL.md)
+
+基于真实项目沉淀的 React Native 移动端 App 一键构建方案。覆盖 Expo 初始化、monorepo 共享包、鉴权路由、API 适配、主题系统与构建发布。
+
+**Copyright © 锦恢 [kirigaya.cn](https://kirigaya.cn)**
+
+**安装：**
+```
+请通过 https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/main/skills/rn-app-builder/SKILL.md 安装该 skill。
+```
+
+**使用：**
+```
+帮我基于 React Native 搭建一个移动应用...
 ```
 
 ---
@@ -108,18 +108,6 @@ Tauri 应用开发调试工具集，提供截图、DOM 检查、元素交互、I
 jinhui-skills/
 ├── README.md                   # 本文件
 ├── skills/                     # 所有 skill 文件存放目录
-│   ├── expo-rn-mobile-app-blueprint/  # Expo React Native 移动应用蓝图
-│   │   ├── SKILL.md            # 主入口
-│   │   ├── agents/             # Agent 接口配置
-│   │   │   └── openai.yaml
-│   │   ├── references/         # 参考文档
-│   │   │   ├── auth-api.md
-│   │   │   ├── simulator-keyboard-input.md
-│   │   │   ├── stack.md
-│   │   │   ├── structure.md
-│   │   │   └── verification.md
-│   │   └── scripts/            # 脚手架脚本
-│   │       └── create-expo-rn-app-blueprint.py
 │   ├── jinhui-stack-debug/         # 全栈调试与开发规范
 │   │   ├── SKILL.md            # 主入口
 │   │   ├── build-test-suite/   # 构建软件测试集指南
@@ -136,6 +124,18 @@ jinhui-skills/
 │   │   ├── cache/              # 缓存依赖型
 │   │   ├── build/              # 构建依赖型
 │   │   └── runtime/            # 运行时依赖型
+│   ├── rn-app-builder/         # React Native App 一键构建方案
+│   │   ├── SKILL.md            # 主入口
+│   │   ├── agents/             # Agent 接口配置
+│   │   │   └── openai.yaml
+│   │   ├── references/         # 参考文档
+│   │   │   ├── auth-api.md
+│   │   │   ├── simulator-keyboard-input.md
+│   │   │   ├── stack.md
+│   │   │   ├── structure.md
+│   │   │   └── verification.md
+│   │   └── scripts/            # 脚手架脚本
+│   │       └── create-rn-app.py
 │   ├── tauri-devtools/         # Tauri 开发调试工具集
 │   │   ├── SKILL.md            # 主入口
 │   │   ├── setup/              # 初始化配置

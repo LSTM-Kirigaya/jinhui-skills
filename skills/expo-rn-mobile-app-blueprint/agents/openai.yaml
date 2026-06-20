@@ -1,4 +1,0 @@
-interface:
-  display_name: "Expo RN App Blueprint"
-  short_description: "Build a complete Expo React Native app shell"
-  default_prompt: "Use $expo-rn-mobile-app-blueprint to scaffold a production-ready Expo React Native mobile app."

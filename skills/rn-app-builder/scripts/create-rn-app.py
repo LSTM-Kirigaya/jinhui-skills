@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
 })
 """)
 
-    print(f"Created Expo React Native app blueprint at {target}")
+    print(f"Created React Native app at {target}")
 
 
 if __name__ == "__main__":

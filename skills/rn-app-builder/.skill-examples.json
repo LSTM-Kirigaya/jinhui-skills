@@ -1,0 +1,68 @@
+{
+  "model": "deepseek-chat",
+  "examples": [
+    {
+      "prompt": "帮我基于一个已有后端，从零搭建一个 React Native 移动应用，放到 apps/mobile，包含登录、首页、我的三个 Tab。",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "用户想基于已有后端从零搭建一个 React Native 移动应用，需要登录、首页、我的三个 Tab。这正好命中 rn-app-builder skill 的核心能力：一键搭建 Expo + React Native + TypeScript 的移动端 App，包含 monorepo 共享包、鉴权路由、API 适配和主题系统。我需要先读取 skill 的 stack 和 structure 参考文档，确保给出的版本、目录结构与工程实践一致。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/rn-app-builder/references/stack.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/rn-app-builder/references/structure.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/rn-app-builder/references/auth-api.md"
+          }
+        },
+        {
+          "type": "message",
+          "content": "我会使用 `rn-app-builder` 帮你一键搭建 `apps/mobile`：\n\n**1. 生成骨架**\n```bash\npython3 skills/rn-app-builder/scripts/create-rn-app.py \\\n  --target apps/mobile \\\n  --app-name MyApp \\\n  --package-name com.example.myapp \\\n  --api-base-url http://127.0.0.1:3010\n```\n\n**2. 共享包（若还没有则创建）**\n```\npackages/core/        # 用户、首页数据等 DTO\npackages/api-client/  # 适配器式 HTTP 客户端\n```\n\n**3. App 侧核心文件**\n- `src/config.ts`：配置 `API_BASE_URL`\n- `src/api.ts`：注入 `fetch` + `AsyncStorage` 创建 `apiClient`\n- `src/providers/AuthProvider.tsx`：token 自检、登录/登出\n- `src/navigation/RootNavigator.tsx`：未登录 -> Login，已登录 -> MainTabs\n- `src/screens/LoginScreen.tsx`、`HomeScreen.tsx`、`ProfileScreen.tsx`\n- `src/theme/index.ts`：品牌色、间距、圆角\n\n**4. 导航结构**\n```\nRootStack\n├── 未登录：Login\n└── 已登录：MainTabs\n    ├── HomeTab\n    ├── （StatsTab 可选）\n    └── ProfileTab\n```\n\n**5. 验证**\n```bash\nnpm install\nnpm --workspace apps/mobile run typecheck\nnpx expo export --platform ios --output-dir /tmp/mobile-ios-export --clear\n```\n\n请提供你的登录方式（密码/短信/微信）和 API 基地址，我可以继续生成具体文件。"
+        }
+      ],
+      "model": "deepseek-chat"
+    },
+    {
+      "prompt": "我们的 monorepo 里已经有 web 和小程序了，现在想加一个原生 App，共享类型和 API 请求逻辑，该怎么做？",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "用户已有 web 和小程序，现在要在 monorepo 中新增原生 App，并共享类型和 API 请求逻辑。这正是 rn-app-builder 的 monorepo 模式：把平台无关逻辑抽到 packages/core 和 packages/api-client，App 只负责 UI、导航和平台适配。我需要读取 structure 和 auth-api 参考文档给出具体步骤。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/rn-app-builder/references/structure.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/rn-app-builder/references/auth-api.md"
+          }
+        },
+        {
+          "type": "message",
+          "content": "按 `rn-app-builder` 的 monorepo 模式来做：\n\n**1. 抽出共享层**\n- `packages/core`：定义 DTO、枚举、纯计算（web/小程序/App 共用）。\n- `packages/api-client`：定义 `ApiClientAdapters`、`TokenStorage`、业务请求方法。\n\n**2. 新增 App**\n```\napps/mobile/\n  src/api.ts        # 注入 fetch + AsyncStorage + 文件上传\n  src/config.ts     # API_BASE_URL、版本号\n  src/providers/AuthProvider.tsx\n  src/navigation/RootNavigator.tsx\n  src/screens/\n  src/theme/\n```\n\n**3. tsconfig paths**\n在 `apps/mobile/tsconfig.json` 中指向本地 packages：\n```json\n\"paths\": {\n  \"@example/core\": [\"../../packages/core/src\"],\n  \"@example/api-client\": [\"../../packages/api-client/src\"]\n}\n```\n\n**4. 职责边界**\n- `packages/*`：不依赖 React Native、浏览器、小程序全局。\n- `apps/mobile`：只写 UI、导航、权限、平台相关代码。\n- 业务请求通过 `apiClient.xxx()` 调用，底层适配器由 RN 注入。\n\n**5. 验证**\n```bash\nnpm install\nnpm --workspace apps/mobile run typecheck\nnpm --workspace apps/mobile run start\n```\n\n需要我直接帮你生成这套结构和示例代码吗？"
+        }
+      ],
+      "model": "deepseek-chat"
+    }
+  ]
+}
