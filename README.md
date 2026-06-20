@@ -20,9 +20,9 @@
 
 <!-- 新技能请按字母顺序添加 -->
 
-### [expo-rn-mobile-app-blueprint](skills/expo-rn-mobile-app-blueprint/SKILL.md)
+### [expo-rn-blueprint](skills/expo-rn-mobile-app-blueprint/SKILL.md)
 
-Expo React Native 移动应用蓝图，用于在 monorepo 中搭建或迁移完整的移动端 App。包含 Expo SDK 56 / React Native 0.85 / React 19 架构、共享 packages、鉴权路由、模拟器键盘输入处理以及小程序到原生应用的迁移规范。
+在 monorepo 中搭建或迁移 Expo React Native 移动应用的蓝图。支持共享包、鉴权路由、模拟器硬件键盘输入，以及小程序到原生应用的迁移规范。
 
 **Copyright © 锦恢 [kirigaya.cn](https://kirigaya.cn)**
 
