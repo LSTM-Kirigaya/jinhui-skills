@@ -13,3 +13,9 @@ Thumbs.db
 
 __pycache__/
 *.pyc
+
+# Test skills (local only)
+test-skills/
+
+# Playwright MCP runtime
+.playwright-mcp/

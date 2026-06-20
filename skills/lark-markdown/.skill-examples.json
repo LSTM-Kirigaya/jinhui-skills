@@ -1,0 +1,47 @@
+{
+  "model": "deepseek-chat",
+  "examples": [
+    {
+      "prompt": "你能否把这个自动部署机器人在飞书里的回复做成lark markdown格式的，从而让它能发送富文本卡片？",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "用户想把自动部署机器人在飞书里的回复做成 lark markdown 格式，以便发送富文本卡片。这正好命中 lark-markdown skill 的核心能力：构造 Feishu 交互卡片。我需要先读取 SKILL.md，确认支持的语法和卡片结构，然后给出一个可直接复用的示例。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/lark-markdown/SKILL.md"
+          }
+        },
+        {
+          "type": "message",
+          "content": "可以，直接使用 `lark_md` 标签即可把纯文本回复升级为富文本卡片。下面是一个「自动部署机器人」回复的完整示例：\n\n```typescript\nconst card = {\n  config: { wide_screen_mode: true, enable_forward: true },\n  header: {\n    template: 'green',\n    title: { tag: 'plain_text', content: '部署成功' },\n  },\n  elements: [\n    {\n      tag: 'div',\n      text: {\n        tag: 'lark_md',\n        content: '**项目：** `my-service`\\n**版本：** `v1.2.3`\\n**耗时：** `45s`',\n      },\n    },\n    { tag: 'hr' },\n    {\n      tag: 'markdown',\n      content: '```bash\\n$ npm run deploy\\n✔ Build completed\\n✔ Upload to CDN\\n✔ Update ingress\\n```',\n    },\n    {\n      tag: 'action',\n      actions: [\n        {\n          tag: 'button',\n          text: { tag: 'plain_text', content: '查看日志' },\n          type: 'primary',\n          value: { action: 'view_logs', deployId: '12345' },\n        },\n      ],\n    },\n  ],\n};\n\nawait client.im.v1.message.create({\n  params: { receive_id_type: 'open_id' },\n  data: {\n    receive_id: userOpenId,\n    msg_type: 'interactive',\n    content: JSON.stringify(card),\n  },\n});\n```\n\n要点：\n1. 正文用 `tag: 'lark_md'` 支持 **加粗**、`` `inline code` ``、换行。\n2. 代码块用 `tag: 'markdown'` 并包上 fenced code，可带语法高亮。\n3. 按钮放在 `action` 元素里，用户点击后你的服务端会收到回调。"
+        }
+      ],
+      "model": "deepseek-chat"
+    },
+    {
+      "prompt": "我希望我们的系统中间coding agent通过ACP协议向飞书里面发送的文本，需要符合lark markdown的一个范式。",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "用户希望在 ACP（Agent Communication Protocol）协议中，coding agent 向飞书发送的文本统一符合 lark markdown 范式。这意味着需要给出一个「数据契约」或「消息 Schema」，让 agent 在生成回复时直接产出可被 Feishu 卡片渲染的结构。我需要基于 skill 里的转换表和卡片结构，给出一个推荐的 JSON Schema / TypeScript 接口。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/lark-markdown/SKILL.md"
+          }
+        },
+        {
+          "type": "message",
+          "content": "可以为 ACP 消息层定义一个统一的 `LarkCardMessage` 结构，让 coding agent 直接生成该 JSON，飞书侧只做透传。推荐范式如下：\n\n```typescript\ninterface LarkCardMessage {\n  msg_type: 'interactive';\n  card: {\n    config: { wide_screen_mode: boolean; enable_forward?: boolean };\n    header?: {\n      template: 'green' | 'red' | 'blue' | 'grey' | 'wathet' | 'yellow' | 'orange' | 'purple' | 'carmine';\n      title: { tag: 'plain_text'; content: string };\n      subtitle?: { tag: 'plain_text'; content: string };\n    };\n    elements: Array<\n      | { tag: 'div'; text: { tag: 'lark_md'; content: string } }\n      | { tag: 'markdown'; content: string }\n      | { tag: 'hr' }\n      | { tag: 'note'; elements: Array<{ tag: 'plain_text' | 'lark_md'; content: string }> }\n      | {\n          tag: 'action';\n          actions: Array<{\n            tag: 'button';\n            text: { tag: 'plain_text'; content: string };\n            type: 'primary' | 'default' | 'danger';\n            value: Record<string, any>;\n          }>;\n        }\n    >;\n  };\n}\n```\n\n**ACP 接入约定：**\n1. Agent 侧统一返回 `LarkCardMessage` JSON。\n2. 网关层（或 Bot 服务）将其序列化为 `content: JSON.stringify(card)` 后调用 `client.im.v1.message.create`。\n3. 纯文本段落 → `div` + `lark_md`；代码块 → `markdown`；列表 → 多条 `div` 带 `•` 前缀；表格 → `column_set` + `column`。\n4. 若 agent 只想发纯文本，可降级为 `msg_type: 'text'` 直接发字符串，不走卡片。\n\n这样所有通过 ACP 发送到飞书的消息都能保持一致的富文本体验。"
+        }
+      ],
+      "model": "deepseek-chat"
+    }
+  ]
+}

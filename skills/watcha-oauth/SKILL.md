@@ -25,6 +25,10 @@ model: deepseek-chat
 - **授权流程**：见 [references/authorization-flow.md](references/authorization-flow.md) — 包含完整授权流程、Scope 说明、回调处理、错误码
 - **API 参考**：见 [references/api-reference.md](references/api-reference.md) — 包含 Token 换取、刷新、校验、用户信息 API 的详细请求与响应
 
+## 品牌物料
+
+- **观猹小图标**：[点击下载](https://watcha.tos-cn-beijing.volces.com/products/logo/1752064513_guan-cha-insights.png?x-tos-process=image/resize,w_720/format,webp)
+
 ## 脚本工具
 
 - **PKCE 生成**：`scripts/generate-pkce.py` — 生成 `code_verifier` 和 `code_challenge`

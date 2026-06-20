@@ -3,12 +3,60 @@
   "examples": [
     {
       "prompt": "我们当前系统的注册验证，请通过腾讯云的邮箱系统发送邮件给用户实现验证。",
-      "aiResponses": [],
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "分析用户请求：「我们当前系统的注册验证，请通过腾讯云的邮箱系统发送邮件给用户实现验证。」。将拆解步骤并调用合适工具完成目标。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "./README.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "write_file",
+          "toolInput": {
+            "path": "./output.txt",
+            "content": "已处理：我们当前系统的注册验证，请通过腾讯云的邮箱系统发送邮件给用户实现验证。"
+          }
+        },
+        {
+          "type": "message",
+          "content": "已根据你的请求完成处理：「我们当前系统的注册验证，请通过腾讯云的邮箱系统发送邮件给用户实现验证。」。\n\n步骤摘要：\n1. 理解需求\n2. 读取上下文\n3. 生成结果\n\n以上为演示轨迹，上传时将一并提交。"
+        }
+      ],
       "model": "deepseek-chat"
     },
     {
       "prompt": "请将我们当前系统中的邮箱服务改为腾讯云的服务，并根据skill帮我来创建缺失的环境变量。一旦有系统中没有的，你需要跟我说一下。",
-      "aiResponses": [],
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "分析用户请求：「请将我们当前系统中的邮箱服务改为腾讯云的服务，并根据skill帮我来创建缺失的环境变量。一旦有系统中没有的，你需要跟我说一下。」。将拆解步骤并调用合适工具完成目标。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "./README.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "write_file",
+          "toolInput": {
+            "path": "./output.txt",
+            "content": "已处理：请将我们当前系统中的邮箱服务改为腾讯云的服务，并根据skill帮我来创建缺失的环境变量。一旦有系统中没有的，你需要跟我说一下。"
+          }
+        },
+        {
+          "type": "message",
+          "content": "已根据你的请求完成处理：「请将我们当前系统中的邮箱服务改为腾讯云的服务，并根据skill帮我来创建缺失的环境变量。一旦有系统中没有的，你需要跟我说一下。」。\n\n步骤摘要：\n1. 理解需求\n2. 读取上下文\n3. 生成结果\n\n以上为演示轨迹，上传时将一并提交。"
+        }
+      ],
       "model": "deepseek-chat"
     }
   ]
