@@ -3,7 +3,7 @@ name: expo-rn-mobile-app-blueprint
 description: Build or migrate a complete Expo React Native mobile app in a monorepo. Use when Codex needs to scaffold an APP parallel to a mini-program or web app, reproduce an Expo SDK 56 / React Native 0.85 / React 19 architecture, add shared API/client packages, implement auth-gated tab navigation, preserve simulator hardware-keyboard input, or document a mini-program-to-native migration workflow without project-specific private details.
 tags: ["expo", "react-native", "mobile-app", "monorepo", "mini-program"]
 model: deepseek-chat
-rootUrl: https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/main/skills/expo-rn-mobile-app-blueprint/SKILL.md
+rootUrl: https://cdn.jsdelivr.net/gh/LSTM-Kirigaya/jinhui-skills@main/skills/expo-rn-mobile-app-blueprint/SKILL.md
 ---
 
 # Expo RN Mobile App Blueprint
