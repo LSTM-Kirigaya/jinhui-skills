@@ -1,0 +1,150 @@
+{
+  "model": "gpt-5",
+  "examples": [
+    {
+      "prompt": "Use $admin-console-blueprint to design a Vite + Go admin console with Cookie login, feedback work orders, content report review, and a benchmark center.",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "分析用户请求：「Use $admin-console-blueprint to design a Vite + Go admin console with Cookie login, feedback work orders, content report review, and a benchmark center.」。将拆解步骤并调用合适工具完成目标。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "./README.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "write_file",
+          "toolInput": {
+            "path": "./output.txt",
+            "content": "已处理：Use $admin-console-blueprint to design a Vite + Go admin console with Cookie login, feedback work orders, content report review, and a benchmark center."
+          }
+        },
+        {
+          "type": "message",
+          "content": "已根据你的请求完成处理：「Use $admin-console-blueprint to design a Vite + Go admin console with Cookie login, feedback work orders, content report review, and a benchmark center.」。\n\n步骤摘要：\n1. 理解需求\n2. 读取上下文\n3. 生成结果\n\n以上为演示轨迹，上传时将一并提交。"
+        }
+      ],
+      "model": "gpt-5"
+    },
+    {
+      "prompt": "Use $admin-console-blueprint to add a proper `/api/admin/*` boundary to this Go backend and define the handler, service, repo, and session middleware structure.",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "分析用户请求：「Use $admin-console-blueprint to add a proper `/api/admin/*` boundary to this Go backend and define the handler, service, repo, and session middleware structure.」。将拆解步骤并调用合适工具完成目标。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "./README.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "write_file",
+          "toolInput": {
+            "path": "./output.txt",
+            "content": "已处理：Use $admin-console-blueprint to add a proper `/api/admin/*` boundary to this Go backend and define the handler, service, repo, and session middleware structure."
+          }
+        },
+        {
+          "type": "message",
+          "content": "已根据你的请求完成处理：「Use $admin-console-blueprint to add a proper `/api/admin/*` boundary to this Go backend and define the handler, service, repo, and session middleware structure.」。\n\n步骤摘要：\n1. 理解需求\n2. 读取上下文\n3. 生成结果\n\n以上为演示轨迹，上传时将一并提交。"
+        }
+      ],
+      "model": "gpt-5"
+    },
+    {
+      "prompt": "Use $admin-console-blueprint to refactor our ad hoc internal dashboard into an independent React SPA admin site with shared sidebar, overview page, and module routes.",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "分析用户请求：「Use $admin-console-blueprint to refactor our ad hoc internal dashboard into an independent React SPA admin site with shared sidebar, overview page, and module routes.」。将拆解步骤并调用合适工具完成目标。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "./README.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "write_file",
+          "toolInput": {
+            "path": "./output.txt",
+            "content": "已处理：Use $admin-console-blueprint to refactor our ad hoc internal dashboard into an independent React SPA admin site with shared sidebar, overview page, and module routes."
+          }
+        },
+        {
+          "type": "message",
+          "content": "已根据你的请求完成处理：「Use $admin-console-blueprint to refactor our ad hoc internal dashboard into an independent React SPA admin site with shared sidebar, overview page, and module routes.」。\n\n步骤摘要：\n1. 理解需求\n2. 读取上下文\n3. 生成结果\n\n以上为演示轨迹，上传时将一并提交。"
+        }
+      ],
+      "model": "gpt-5"
+    },
+    {
+      "prompt": "Use $admin-console-blueprint to turn these existing resource editor pages into two reusable admin catalog modules with list, detail, CRUD, and status review patterns.",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "分析用户请求：「Use $admin-console-blueprint to turn these existing resource editor pages into two reusable admin catalog modules with list, detail, CRUD, and status review patterns.」。将拆解步骤并调用合适工具完成目标。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "./README.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "write_file",
+          "toolInput": {
+            "path": "./output.txt",
+            "content": "已处理：Use $admin-console-blueprint to turn these existing resource editor pages into two reusable admin catalog modules with list, detail, CRUD, and status review patterns."
+          }
+        },
+        {
+          "type": "message",
+          "content": "已根据你的请求完成处理：「Use $admin-console-blueprint to turn these existing resource editor pages into two reusable admin catalog modules with list, detail, CRUD, and status review patterns.」。\n\n步骤摘要：\n1. 理解需求\n2. 读取上下文\n3. 生成结果\n\n以上为演示轨迹，上传时将一并提交。"
+        }
+      ],
+      "model": "gpt-5"
+    },
+    {
+      "prompt": "Use $admin-console-blueprint to document the deployment and environment strategy for a static admin frontend plus same-repo Go admin APIs.",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "分析用户请求：「Use $admin-console-blueprint to document the deployment and environment strategy for a static admin frontend plus same-repo Go admin APIs.」。将拆解步骤并调用合适工具完成目标。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "./README.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "write_file",
+          "toolInput": {
+            "path": "./output.txt",
+            "content": "已处理：Use $admin-console-blueprint to document the deployment and environment strategy for a static admin frontend plus same-repo Go admin APIs."
+          }
+        },
+        {
+          "type": "message",
+          "content": "已根据你的请求完成处理：「Use $admin-console-blueprint to document the deployment and environment strategy for a static admin frontend plus same-repo Go admin APIs.」。\n\n步骤摘要：\n1. 理解需求\n2. 读取上下文\n3. 生成结果\n\n以上为演示轨迹，上传时将一并提交。"
+        }
+      ],
+      "model": "gpt-5"
+    }
+  ]
+}

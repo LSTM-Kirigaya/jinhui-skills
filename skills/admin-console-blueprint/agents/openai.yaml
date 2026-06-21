@@ -1,0 +1,4 @@
+interface:
+  display_name: "Admin Console Blueprint"
+  short_description: "Blueprint a Vite + Go admin console with Cookie auth"
+  default_prompt: "Use $admin-console-blueprint to design or scaffold a modular Vite + Go admin console with Cookie session auth."
