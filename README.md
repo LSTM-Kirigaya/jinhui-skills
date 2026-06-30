@@ -102,6 +102,22 @@ Tauri 应用开发调试工具集，提供截图、DOM 检查、元素交互、I
 请帮我自动化操作这个网页...
 ```
 
+---
+
+### [zhihu-oauth](skills/zhihu-oauth/SKILL.md)
+
+知乎 OAuth 2.0 接入指南。帮助开发者完成知乎 Authorization Code 授权流程，包括应用申请、授权页跳转、Token 换取、用户信息获取及社交关系接口调用。
+
+**安装：**
+```
+请通过 https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/main/skills/zhihu-oauth/SKILL.md 安装该 skill。
+```
+
+**使用：**
+```
+帮我接入知乎 OAuth2.0 登录...
+```
+
 ## 目录结构
 
 ```

@@ -1,0 +1,61 @@
+{
+  "model": "deepseek-chat",
+  "examples": [
+    {
+      "prompt": "帮我接入知乎 OAuth2.0，我需要引导用户授权并获取用户信息的完整代码示例。",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "用户需要知乎 OAuth 2.0 的完整接入代码示例，包括引导授权和获取用户信息。我需要先读取 skill 中的参考文档和脚本示例，然后提供针对性的实现指导。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/zhihu-oauth/references/authorization-flow.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/zhihu-oauth/references/api-reference.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/zhihu-oauth/scripts/zhihu-oauth-example.py"
+          }
+        },
+        {
+          "type": "message",
+          "content": "以下是知乎 OAuth 2.0 的完整接入流程和 Python 代码示例：\n\n### 1. 引导用户授权\n生成授权链接：\n```python\nimport urllib.parse\n\nauthorize_url = (\n    'https://openapi.zhihu.com/authorize?'\n    + urllib.parse.urlencode({\n        'redirect_uri': REDIRECT_URI,\n        'app_id': APP_ID,\n        'response_type': 'code',\n        'state': state,\n    })\n)\n```\n\n### 2. 回调中换取 Token\n```python\npayload = {\n    'app_id': APP_ID,\n    'app_key': APP_KEY,\n    'grant_type': 'authorization_code',\n    'redirect_uri': REDIRECT_URI,\n    'code': code,\n}\nresp = requests.post('https://openapi.zhihu.com/access_token', json=payload)\ntoken = resp.json()['access_token']\n```\n\n### 3. 获取用户信息\n```python\nresp = requests.get(\n    'https://openapi.zhihu.com/user',\n    headers={'Authorization': f'Bearer {token}'}\n)\nuser = resp.json()\n```\n\n注意：APP_KEY 必须走环境变量，token 交换必须在后端完成。"
+        }
+      ],
+      "model": "deepseek-chat"
+    },
+    {
+      "prompt": "知乎 OAuth 的 redirect_uri 不匹配怎么办？",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "用户遇到了 redirect_uri 不匹配的问题。我需要从 skill 的参考文档中提取相关说明，给出明确的解决方案。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "skills/zhihu-oauth/references/authorization-flow.md"
+          }
+        },
+        {
+          "type": "message",
+          "content": "知乎 OAuth 的 `redirect_uri` 必须与申请 APP_ID 时填写的地址**完全一致**（包括协议、域名、路径）。\n\n常见原因：\n1. 协议不一致：申请时填了 `https://`，实际传了 `http://`\n2. 域名不一致：申请时填了 `www.example.com`，实际传了 `example.com`\n3. 路径不一致：申请时填了 `/callback`，实际传了 `/auth/callback`\n4. URL 参数未编码：特殊字符未做 URL 编码\n\n建议在构建授权 URL 时始终使用标准库的 URL 编码函数处理 `redirect_uri`，并在申请时记录准确的回调地址。"
+        }
+      ],
+      "model": "deepseek-chat"
+    }
+  ]
+}
