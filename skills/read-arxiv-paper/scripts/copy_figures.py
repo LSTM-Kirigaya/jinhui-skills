@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-"""扫描 LaTeX 源码中的图片引用并复制到测试工作区。
+"""扫描 LaTeX 源码中的图片引用，复制到测试工作区并统一转换为 PNG。
 
 用法:
     python3 copy_figures.py <arxiv_id> <workspace_dir>
@@ -12,6 +12,7 @@ from __future__ import annotations
 import json
 import re
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -44,13 +45,11 @@ def find_graphics(extract_dir: Path) -> list[dict]:
 
 def resolve_file(extract_dir: Path, raw_name: str, source_tex: Path) -> Path | None:
     """解析图片文件在解压目录中的真实路径。"""
-    # 优先按原始路径（相对当前 tex 或根目录）查找
     candidates = []
     if source_tex.is_file():
         candidates.append(source_tex.parent / raw_name)
     candidates.append(extract_dir / raw_name)
 
-    # 若原始路径无扩展名，尝试补全常见扩展名
     has_ext = Path(raw_name).suffix.lower() in IMAGE_EXTENSIONS
     search_paths = []
     for cand in candidates:
@@ -59,7 +58,6 @@ def resolve_file(extract_dir: Path, raw_name: str, source_tex: Path) -> Path | N
             for ext in IMAGE_EXTENSIONS:
                 search_paths.append(Path(str(cand) + ext))
 
-    # 同时尝试仅按 basename 在解压目录全局搜索（处理子目录歧义）
     basename = Path(raw_name).name
     if not has_ext:
         for ext in IMAGE_EXTENSIONS:
@@ -73,16 +71,100 @@ def resolve_file(extract_dir: Path, raw_name: str, source_tex: Path) -> Path | N
     return None
 
 
-def safe_basename(path: Path) -> str:
-    """生成仅含安全字符的文件名。"""
-    name = path.name
-    # 保留字母、数字、点、下划线、连字符
-    return re.sub(r"[^\w.\-]", "_", name)
+def safe_stem(name: str) -> str:
+    """生成仅含安全字符的文件名 stem。"""
+    stem = Path(name).stem
+    return re.sub(r"[^\w\-]", "_", stem)
 
 
-def copy_assets(refs: list[dict], extract_dir: Path, assets_dir: Path) -> list[dict]:
-    """复制图片到 assets 目录，返回带 relative_path 的清单。"""
+def convert_to_png(src: Path, dest: Path) -> bool:
+    """把任意支持格式的图片转换为 PNG。优先使用 macOS 内置 sips，其次 poppler/ImageMagick。"""
+    dest.parent.mkdir(parents=True, exist_ok=True)
+
+    # 1. sips（macOS 内置，支持 PDF/EPS/PNG/JPG）
+    if shutil.which("sips"):
+        try:
+            subprocess.run(
+                ["sips", "-s", "format", "png", str(src), "--out", str(dest)],
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                timeout=60,
+            )
+            if dest.exists():
+                return True
+        except Exception:
+            pass
+
+    # 2. pdftoppm（poppler，适合 PDF）
+    if src.suffix.lower() == ".pdf" and shutil.which("pdftoppm"):
+        try:
+            tmp_prefix = dest.with_suffix("")
+            subprocess.run(
+                ["pdftoppm", "-png", str(src), str(tmp_prefix)],
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                timeout=60,
+            )
+            # pdftoppm 生成 {prefix}-1.png
+            candidate = Path(f"{tmp_prefix}-1.png")
+            if candidate.exists():
+                shutil.move(str(candidate), str(dest))
+                # 清理可能产生的多余页
+                for extra in tmp_prefix.parent.glob(f"{tmp_prefix.name}-*.png"):
+                    extra.unlink()
+                return True
+        except Exception:
+            pass
+
+    # 3. ImageMagick convert
+    if shutil.which("convert"):
+        try:
+            subprocess.run(
+                ["convert", str(src), str(dest)],
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                timeout=60,
+            )
+            if dest.exists():
+                return True
+        except Exception:
+            pass
+
+    return False
+
+
+def prepare_png_asset(src: Path, assets_dir: Path, used_names: dict[str, int]) -> tuple[str, Path] | None:
+    """把源文件处理成 assets 目录下的 PNG 文件，返回最终相对路径和文件路径。"""
+    stem = safe_stem(src.name)
+    counter = used_names.get(stem, 0)
+    if counter == 0:
+        dest_name = f"{stem}.png"
+    else:
+        dest_name = f"{stem}_{counter}.png"
+    used_names[stem] = counter + 1
+
+    dest = assets_dir / dest_name
+    dest.parent.mkdir(parents=True, exist_ok=True)
+
+    if src.suffix.lower() == ".png":
+        shutil.copy2(src, dest)
+    else:
+        if not convert_to_png(src, dest):
+            return None
+
+    return f"assets/{dest_name}", dest
+
+
+def copy_and_convert_assets(refs: list[dict], extract_dir: Path, assets_dir: Path) -> tuple[list[dict], list[str]]:
+    """复制/转换图片到 assets 目录，最终只保留 PNG。"""
+    # 清空旧资源，避免残留 PDF 等非 PNG 文件
+    if assets_dir.exists():
+        shutil.rmtree(assets_dir)
     assets_dir.mkdir(parents=True, exist_ok=True)
+
     used_names: dict[str, int] = {}
     results = []
     missing = []
@@ -95,26 +177,17 @@ def copy_assets(refs: list[dict], extract_dir: Path, assets_dir: Path) -> list[d
             missing.append(raw)
             continue
 
-        base = safe_basename(src)
-        name = Path(base).stem
-        ext = Path(base).suffix
-        # 处理重名
-        counter = used_names.get(base, 0)
-        if counter == 0:
-            dest_name = base
-        else:
-            dest_name = f"{name}_{counter}{ext}"
-        used_names[base] = counter + 1
+        rel_path = prepare_png_asset(src, assets_dir, used_names)
+        if not rel_path:
+            missing.append(raw)
+            continue
 
-        dest = assets_dir / dest_name
-        shutil.copy2(src, dest)
-
-        file_type = Path(dest_name).suffix.lower().lstrip(".") or "unknown"
+        relative_path, dest_path = rel_path
         results.append({
             "original": raw,
             "original_filename": src.name,
-            "relative_path": f"assets/{dest_name}",
-            "type": file_type,
+            "relative_path": relative_path,
+            "type": "png",
             "found": True,
         })
 
@@ -135,7 +208,7 @@ def main() -> int:
 
     assets_dir = workspace_dir / "assets"
     refs = find_graphics(extract_dir)
-    figures, missing = copy_assets(refs, extract_dir, assets_dir)
+    figures, missing = copy_and_convert_assets(refs, extract_dir, assets_dir)
 
     manifest = {
         "arxiv_id": arxiv_id,

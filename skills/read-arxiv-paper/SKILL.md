@@ -114,14 +114,16 @@ https://arxiv.org/abs/2601.07372
 - 递归读取 `\input{}` / `\include{}` / `\bibliography{}`。
 - 跳过二进制资源文件，但记录 `\includegraphics{...}` 引用的图片文件名。
 
-### 3. 复制图表到测试工作区
+### 3. 复制图表到测试工作区并统一转 PNG
 
 - 调用：
   ```bash
   python3 skills/read-arxiv-paper/scripts/copy_figures.py {arxiv_id} test-skills/read-paper/output
   ```
-- 支持的图片格式：`.png`、`.jpg`、`.jpeg`、`.pdf`、`.eps`。
-- 复制后生成 `test-skills/read-paper/output/figure_manifest.json`。
+- 支持的原始图片格式：`.png`、`.jpg`、`.jpeg`、`.pdf`、`.eps`。
+- 脚本会自动将所有非 PNG 文件转换为 PNG，最终 `assets/` 目录中**只保留 `.png` 文件**。
+- 转换成功后删除原始非 PNG 文件；转换失败则记录到 `resources.missing_files`。
+- 复制/转换后生成 `test-skills/read-paper/output/figure_manifest.json`。
 
 ### 4. 提取表格
 
@@ -159,10 +161,11 @@ https://arxiv.org/abs/2601.07372
 
 ## 图表处理规则
 
-- 复制图片时保持原始文件名；若重名，追加 `_1`、`_2` 序号。
-- 无法识别的 EPS/PDF 文件也复制到 `assets/`，并在 JSON 中标注 `type` 字段。
-- 如果 `\includegraphics` 引用的文件不存在，记录到 JSON 的 `resources.missing_files`。
-- 不转换 PDF/EPS 为图片，预览页中 PDF 使用 `<embed>`，EPS 提供下载链接。
+- 复制图片时会自动转换为 PNG 格式，最终 `assets/` 目录中只允许存在 `.png` 文件。
+- 输出文件名统一为 `{stem}.png`；若重名，追加 `_1`、`_2` 序号。
+- 如果 `\includegraphics` 引用的文件不存在或转换失败，记录到 JSON 的 `resources.missing_files`。
+- PNG 转换优先使用 macOS 内置 `sips`，其次尝试 `pdftoppm` 或 ImageMagick `convert`；转换工具不可用时需安装。
+- 预览页中图片统一使用 `<img>` 渲染。
 
 ## JSON Schema
 
@@ -238,23 +241,120 @@ https://arxiv.org/abs/2601.07372
 | `missing_files` | array[string] | 引用但未找到的文件列表 | `[]` |
 | `latex_dir` | string | 原始 LaTeX 解压目录 | `"~/.cache/nanochat/knowledge/2606.32034"` |
 
+---
+
+# read-pub-paper：生成并发布中文博客
+
+## 触发条件
+
+当用户给出 arxiv URL，并明确要求“发布到网站/博客/上线/publish the blog/发布中文博客”等目标时启用 `read-pub-paper` 工作流。
+
+该工作流首先完整执行 `read-paper` 工作流，然后再执行资源上传与远程发布。
+
+## 前置条件
+
+- `read-paper` 工作流已执行完毕。
+- 存在 `test-skills/read-paper/output/blog_{arxiv_id}.json`。
+- `test-skills/read-paper/output/assets/` 目录中只包含 PNG 图片（由 `copy_figures.py` 自动保证）。
+
+## 环境变量
+
+| 变量名 | 必填 | 说明 |
+|---|---|---|
+| `READ_PAPER_PUBLISH_URL` | 是 | 最终发布 POST 接口地址，例如 `https://api.example.com/v1/papers/publish` |
+| `READ_PAPER_UPLOAD_URL` | 否 | 静态资源上传接口地址；未设置时从 `READ_PAPER_PUBLISH_URL` 派生，规则为取发布 URL 的目录路径追加 `/upload` |
+| `READ_PAPER_PUBLISH_TOKEN` | 否 | 认证 token；设置时以 `Authorization: Bearer {token}` 请求头发送；未设置时不加认证头 |
+
+所有环境变量仅通过当前 shell 环境读取，不得硬编码到脚本或 JSON 中。
+
+## 工作流
+
+1. 完整执行 `read-paper` 工作流，生成 `blog_{arxiv_id}.json`、PNG 资源 `assets/`、`preview.html`。
+2. 读取环境变量并校验 `READ_PAPER_PUBLISH_URL`。
+3. 上传 `assets/` 下所有 PNG 文件到远程上传接口，记录每个文件的远程 URL。
+4. 在 `blog_{arxiv_id}.json` 中为每个 `chapters[].figures[]` 新增 `remote_url` 字段，同时保留 `relative_path`。
+5. 在 JSON 顶层新增 `arxiv` 对象，包含原论文网页链接与 PDF 链接：
+   ```json
+   {
+     "abs_url": "https://arxiv.org/abs/{arxiv_id}",
+     "pdf_url": "https://arxiv.org/pdf/{arxiv_id}.pdf",
+     "html_url": "https://arxiv.org/html/{arxiv_id}",
+     "source_url": "https://arxiv.org/e-print/{arxiv_id}"
+   }
+   ```
+6. 将完整 JSON POST 到 `READ_PAPER_PUBLISH_URL`。
+7. 根据响应向用户报告发布成功或失败；失败时保留本地改写后的 JSON 并提示手动发布。
+
+## 静态资源上传接口
+
+- **URL**：`READ_PAPER_UPLOAD_URL`；未设置时从 `READ_PAPER_PUBLISH_URL` 派生 `/upload`。
+- **方法**：`POST`
+- **Content-Type**：`multipart/form-data`
+- **表单字段**：
+  - `file`：单个 PNG 图片文件（二进制）
+  - `arxiv_id`：论文 ID
+  - `filename`：原始 PNG 文件名
+- **成功响应示例**：
+  ```json
+  {
+    "success": true,
+    "url": "https://cdn.example.com/papers/2606.32034/assets/fig1.png",
+    "path": "papers/2606.32034/assets/fig1.png"
+  }
+  ```
+- **失败响应示例**：
+  ```json
+  {
+    "success": false,
+    "error": "Unsupported file type"
+  }
+  ```
+
+## 最终发布接口
+
+- **URL**：`READ_PAPER_PUBLISH_URL`
+- **方法**：`POST`
+- **Content-Type**：`application/json`
+- **请求头**：若 `READ_PAPER_PUBLISH_TOKEN` 已设置，添加 `Authorization: Bearer {token}`
+- **请求体**：在 `read-paper` 生成的 blog JSON 基础上，包含 `arxiv` 对象与每个 figure 的 `remote_url`。
+- **成功响应示例**：
+  ```json
+  {
+    "success": true,
+    "publishedUrl": "https://blog.example.com/papers/2606.32034",
+    "postId": "abc123"
+  }
+  ```
+- **失败响应示例**：
+  ```json
+  {
+    "success": false,
+    "error": "Duplicate arxiv_id"
+  }
+  ```
+
+## 进度与错误处理
+
+- 单个资源上传失败：指数退避重试 3 次；任一文件最终失败即中止整个 `read-pub-paper` 流程，避免发布缺图的博客。
+- 最终 POST 失败：重试 3 次，保存改写后的 JSON 到 `test-skills/read-paper/output/blog_{arxiv_id}_published.json`，提示用户手动 POST。
+- 脚本执行期间输出机器可读进度：
+  ```text
+  upload_progress=1/5 file=assets/fig1.png status=success remote=https://cdn.example.com/.../fig1.png
+  ...
+  publish_status=success published_url=https://blog.example.com/papers/2606.32034 post_id=abc123
+  ```
+
 ## 工具脚本
 
 - `scripts/fetch_arxiv.py`：下载并解压指定 arxiv_id 的 LaTeX 源码。
-  ```bash
-  python3 skills/read-arxiv-paper/scripts/fetch_arxiv.py 2601.07372
-  ```
-- `scripts/copy_figures.py`：复制论文图片到测试工作区。
-  ```bash
-  python3 skills/read-arxiv-paper/scripts/copy_figures.py 2606.32034 test-skills/read-paper/output
-  ```
+- `scripts/copy_figures.py`：复制论文图片到测试工作区并统一转换为 PNG。
 - `scripts/extract_tables.py`：提取论文表格。
-  ```bash
-  python3 skills/read-arxiv-paper/scripts/extract_tables.py 2606.32034 test-skills/read-paper/output
-  ```
 - `scripts/generate_preview.py`：从 JSON 生成 HTML 预览页。
+- `scripts/publish_blog.py`：上传 PNG 资源并发布博客 JSON。
   ```bash
-  python3 skills/read-arxiv-paper/scripts/generate_preview.py test-skills/read-paper/output/blog_2606.32034.json
+  export READ_PAPER_PUBLISH_URL=https://api.example.com/v1/papers/publish
+  export READ_PAPER_PUBLISH_TOKEN=your_token
+  python3 skills/read-arxiv-paper/scripts/publish_blog.py test-skills/read-paper/output/blog_2606.32034.json
   ```
 
 ## 注意事项
@@ -264,4 +364,6 @@ https://arxiv.org/abs/2601.07372
 - 如果 arxiv 没有提供源码或源码不是 LaTeX（如只有 PDF/Word），告知用户无法处理。
 - 总结文件放在 `./knowledge/`（项目本地），便于用户直接打开和引用；缓存放在 `~/.cache/nanochat/knowledge/`。
 - `read-paper` 输出放在 `test-skills/read-paper/output/`，该目录已被 `.gitignore` 忽略，不会进入版本控制。
+- `read-pub-paper` 通过环境变量 `READ_PAPER_PUBLISH_URL` 和可选的 `READ_PAPER_UPLOAD_URL`、`READ_PAPER_PUBLISH_TOKEN` 配置远程接口。
+- `READ_PAPER_PUBLISH_TOKEN` 仅用于请求头，禁止写入日志、JSON 或任何可被版本控制的文件。
 - 生成 JSON 前检查 `blog_{arxiv_id}.json` 是否已存在；若存在，先备份为 `blog_{arxiv_id}_{timestamp}.json`，再写入新文件。
