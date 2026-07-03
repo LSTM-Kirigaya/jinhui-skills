@@ -1,0 +1,98 @@
+{
+  "model": "deepseek-chat",
+  "examples": [
+    {
+      "prompt": "帮我读一下这篇 arxiv 论文 https://arxiv.org/abs/2601.07372 并写一个总结",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "用户给了一个 arxiv URL，要求阅读并总结。我应该使用 read-arxiv-paper skill：提取 arxiv_id，调用 fetch_arxiv.py 下载并解压 LaTeX 源码，找到入口 tex 文件，递归读取相关文件，最后在 ./knowledge/ 生成 summary_{tag}.md。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "shell",
+          "toolInput": {
+            "command": "python3 skills/read-arxiv-paper/scripts/fetch_arxiv.py 2601.07372"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "~/.cache/nanochat/knowledge/2601.07372/main.tex"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "write_file",
+          "toolInput": {
+            "path": "./knowledge/summary_conditional_memory.md",
+            "content": "# 论文总结：..."
+          }
+        },
+        {
+          "type": "message",
+          "content": "已完成论文阅读与总结，结果保存在 `./knowledge/summary_conditional_memory.md`。\n\n**论文要点：**\n- 研究背景：...\n- 核心方法：...\n- 实验结果：...\n- 对当前项目的启发：..."
+        }
+      ],
+      "model": "deepseek-chat"
+    },
+    {
+      "prompt": "把这篇论文 https://arxiv.org/abs/2606.32034 生成中文博客 JSON，保留所有图表，并生成 preview.html",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "用户要求把论文生成中文博客 JSON，属于 read-paper 工作流。我需要：1) 用 fetch_arxiv.py 下载源码；2) 递归阅读入口 tex；3) 用 copy_figures.py 复制图片；4) 用 extract_tables.py 提取表格；5) 按 JSON Schema 生成 blog_2606.32034.json；6) 用 generate_preview.py 生成 preview.html。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "shell",
+          "toolInput": {
+            "command": "python3 skills/read-arxiv-paper/scripts/fetch_arxiv.py 2606.32034"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "shell",
+          "toolInput": {
+            "command": "python3 skills/read-arxiv-paper/scripts/copy_figures.py 2606.32034 test-skills/read-paper/output"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "shell",
+          "toolInput": {
+            "command": "python3 skills/read-arxiv-paper/scripts/extract_tables.py 2606.32034 test-skills/read-paper/output"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "~/.cache/nanochat/knowledge/2606.32034/main.tex"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "write_file",
+          "toolInput": {
+            "path": "test-skills/read-paper/output/blog_2606.32034.json",
+            "content": "{\n  \"schema_version\": \"1.0.0\",\n  \"arxiv_id\": \"2606.32034\",\n  ...\n}"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "shell",
+          "toolInput": {
+            "command": "python3 skills/read-arxiv-paper/scripts/generate_preview.py test-skills/read-paper/output/blog_2606.32034.json"
+          }
+        },
+        {
+          "type": "message",
+          "content": "已完成中文博客 JSON 生成。\n\n- JSON：`test-skills/read-paper/output/blog_2606.32034.json`\n- 图表：`test-skills/read-paper/output/assets/`（共复制 N 张）\n- 预览：`test-skills/read-paper/output/preview.html`\n\n博客元数据已包含摘要基础介绍、解决痛点、未来展望；各章节已浓缩并保留所有图表。"
+        }
+      ],
+      "model": "deepseek-chat"
+    }
+  ]
+}
