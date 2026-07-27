@@ -1,0 +1,7 @@
+interface:
+  display_name: "夸克网盘 CLI"
+  short_description: "使用命令行安全上传、续传、下载、管理并校验夸克网盘文件"
+  default_prompt: "Use $quark-drive-cli to safely inspect, transfer, resume, and verify files in Quark Drive."
+
+policy:
+  allow_implicit_invocation: true
