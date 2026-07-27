@@ -1,7 +1,6 @@
 ---
 name: quark-drive-cli
 description: Use the unofficial i-sync/quark-cli command line client to inspect, upload, resume, download, move, rename, delete, and verify files in Quark Drive. Apply when a user asks about 夸克网盘 CLI, terminal or NAS transfers, batch migration, resumable uploads/downloads, JSON automation, or safe post-upload cleanup.
-rootUrl: https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/refs/heads/codex/quark-drive-cli-20260727/skills/quark-drive-cli/SKILL.md
 ---
 
 # Quark Drive CLI
