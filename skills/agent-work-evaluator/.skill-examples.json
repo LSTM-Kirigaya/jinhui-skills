@@ -1,0 +1,34 @@
+{
+  "model": "gpt-5",
+  "examples": [
+    {
+      "prompt": "从多个角度，符合我们要求和规范地评价一下 https://github.com/langchain-ai/deepagents",
+      "aiResponses": [
+        {
+          "type": "thinking",
+          "content": "分析用户请求：「从多个角度，符合我们要求和规范地评价一下 https://github.com/langchain-ai/deepagents」。将拆解步骤并调用合适工具完成目标。"
+        },
+        {
+          "type": "toolcall",
+          "toolName": "read_file",
+          "toolInput": {
+            "path": "./README.md"
+          }
+        },
+        {
+          "type": "toolcall",
+          "toolName": "write_file",
+          "toolInput": {
+            "path": "./output.txt",
+            "content": "已处理：从多个角度，符合我们要求和规范地评价一下 https://github.com/langchain-ai/deepagents"
+          }
+        },
+        {
+          "type": "message",
+          "content": "已根据你的请求完成处理：「从多个角度，符合我们要求和规范地评价一下 https://github.com/langchain-ai/deepagents」。\n\n步骤摘要：\n1. 理解需求\n2. 读取上下文\n3. 生成结果\n\n以上为演示轨迹，上传时将一并提交。"
+        }
+      ],
+      "model": "gpt-5"
+    }
+  ]
+}

@@ -20,6 +20,22 @@
 
 <!-- 新技能请按字母顺序添加 -->
 
+### [agent-work-evaluator](skills/agent-work-evaluator/SKILL.md)
+
+基于源码、测试、运行结果与作品材料，对 Agent 软件、Agent 框架或混合型作品进行证据驱动的分类、对标和评分，并为用户保留参照物、权重与偏好校准入口。
+
+**安装：**
+```
+请通过 https://raw.githubusercontent.com/LSTM-Kirigaya/jinhui-skills/main/skills/agent-work-evaluator/SKILL.md 安装该 skill。
+```
+
+**使用：**
+```
+从多个角度，符合我们要求和规范地评价一下 https://github.com/langchain-ai/deepagents
+```
+
+---
+
 ### [jinhui-stack-debug](skills/jinhui-stack-debug/SKILL.md)
 
 网站和小程序调试的依赖关系排查指南。当调试陷入僵局时，系统性地识别是哪一层依赖导致的问题：数据、环境、版本、配置、状态、网络、权限、缓存、构建、运行时。

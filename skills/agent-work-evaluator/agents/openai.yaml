@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent 作品评审"
+  short_description: "基于源码、作品证据和用户确认基准评审 Agent 作品"
+  default_prompt: "Use $agent-work-evaluator to review this Agent project with source-backed evidence and ask me to confirm the comparison benchmark first."
